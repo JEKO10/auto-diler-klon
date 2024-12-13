@@ -1,7 +1,11 @@
+import Navbar from "./components/Navbar";
+import { Router } from "./router";
+
 function App() {
   return (
     <>
-      <p>Auto diler</p>
+      <Navbar />
+      <Router />
     </>
   );
 }

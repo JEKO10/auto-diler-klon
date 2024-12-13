@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-p {
-  font-size: 2rem;
+body {
+  background-color: rgb(var(--body));
+}
+
+.light {
+  --body: 255, 255, 255;
+  --text: 0, 0, 0;
+}
+
+.dark {
+  --body: 0, 0, 0;
+  --text: 255, 255, 255;
 }
