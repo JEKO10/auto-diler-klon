@@ -1,13 +1,17 @@
 import { useState } from "react";
 import image from "../../assets/register.jpg";
+import axios from "axios";
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    ime: "",
-    prezime: "",
     email: "",
+    first_name: "",
+    last_name: "",
+    phone_number: "",
+    has_viber: true,
+    has_whatsapp: true,
+    is_active: true,
     password: "",
-    broj: "",
   });
 
   const handleChange = (e) => {
@@ -15,10 +19,23 @@ const Register = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Form data submitted:", formData);
+    try {
+      const response = await axios.post(
+        "https://ce1d-79-140-150-179.ngrok-free.app/register",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Submitted successfully: ", response.data);
+    } catch (error) {
+      console.error("Error: ", error);
+    }
   };
 
   return (
@@ -42,8 +59,8 @@ const Register = () => {
               <span>Ime:</span>
               <input
                 type="text"
-                name="ime"
-                value={formData.ime}
+                name="first_name"
+                value={formData.first_name}
                 onChange={handleChange}
                 required
                 placeholder="Ime"
@@ -54,8 +71,8 @@ const Register = () => {
               <span>Prezime:</span>
               <input
                 type="text"
-                name="prezime"
-                value={formData.prezime}
+                name="last_name"
+                value={formData.last_name}
                 onChange={handleChange}
                 required
                 placeholder="Prezime"
@@ -91,8 +108,8 @@ const Register = () => {
             <span>Broj telefona:</span>
             <input
               type="tel"
-              name="broj"
-              value={formData.broj}
+              name="phone_number"
+              value={formData.phone_number}
               onChange={handleChange}
               required
               placeholder="+38268112221"
