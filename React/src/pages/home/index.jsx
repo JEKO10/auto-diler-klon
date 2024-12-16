@@ -1,8 +1,12 @@
+import Navbar from "../../components/Navbar";
+import HeroSection from "./components/HeroSection";
+
 const Home = () => {
   return (
-    <>
-      <h1>Home Pageasfasf</h1>
-    </>
+    <div className="home">
+      <Navbar />
+      <HeroSection />
+    </div>
   );
 };
 

@@ -6,6 +6,12 @@ body {
   background-color: rgb(var(--body));
 }
 
+.home {
+  background-image: url("/src/assets/heroBg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 .light {
   --body: 255, 255, 255;
   --text: 0, 0, 0;
@@ -14,4 +20,17 @@ body {
 .dark {
   --body: 0, 0, 0;
   --text: 255, 255, 255;
+}
+
+@media (min-width: 768px) {
+  .home {
+    background-size: 60% 80%;
+    background-position: 103% 30px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .home {
+    background-size: 50% 80%;
+  }
 }
