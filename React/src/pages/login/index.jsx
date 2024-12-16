@@ -1,12 +1,16 @@
 import { useState } from "react";
 import image from "../../assets/login.jpg";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
+  const [message, setMessage] = useState("");
+  const [isError, setIsError] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,6 +19,12 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (formData.password.length < 6) {
+      setMessage("Lozinka mora imati najmanje 6 karaktera.");
+      setIsError(true);
+      return;
+    }
 
     try {
       const body = new URLSearchParams({
@@ -31,8 +41,30 @@ const Login = () => {
           },
         }
       );
-      console.log("Submitted successfully: ", response.data);
+      const { access_token } = response.data;
+
+      if (access_token) {
+        localStorage.setItem("access_token", access_token);
+        setMessage("Uspješno ste prijavljeni!");
+        setIsError(false);
+
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      }
     } catch (error) {
+      if (error.response) {
+        if (error.response.status === 401) {
+          setMessage("Pogrešan e-mail ili lozinka.");
+        } else if (error.response.status === 500) {
+          setMessage("Greška na serveru. Pokušajte kasnije.");
+        } else {
+          setMessage("Nešto je pošlo po zlu. Pokušajte ponovo.");
+        }
+      } else {
+        setMessage("Nema odgovora sa servera. Provjerite vezu.");
+      }
+      setIsError(true);
       console.error("Error: ", error);
     }
   };
@@ -49,6 +81,17 @@ const Login = () => {
         <p className="text-sm mt-2 mb-5 lg:mb-9 text-[#A1A1A1]">
           -------- Auto Diler --------
         </p>
+        {message && (
+          <div
+            className={`text-sm mb-4 p-3 rounded-md ${
+              isError
+                ? "bg-red-200 text-red-700"
+                : "bg-green-200 text-green-700"
+            }`}
+          >
+            {message}
+          </div>
+        )}
         <form
           onSubmit={handleSubmit}
           className="flex flex-col justify-center items-center gap-4 [&_label]:text-start"

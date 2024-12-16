@@ -1,4 +1,5 @@
 import { RiMenu3Fill } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -11,12 +12,18 @@ const Navbar = () => {
         <li>Usluge</li>
       </ul>
       <div className="gap-2 hidden sm:flex md:flex-col lg:flex-row">
-        <button className="text-xs md:text-sm lg:text-md py-1 lg:py-2 px-5 lg:px-7 bg-red-500 text-white rounded-lg">
+        <Link
+          to="/register"
+          className="text-xs md:text-sm lg:text-md py-1 lg:py-2 px-5 lg:px-7 bg-red-500 text-white rounded-lg"
+        >
           Registruj se
-        </button>
-        <button className="text-xs md:text-sm lg:text-md py-1 lg:py-2 px-5 lg:px-7 border rounded-lg text-red-500 border-red-500">
+        </Link>
+        <Link
+          to="/login"
+          className="text-xs md:text-sm lg:text-md py-1 lg:py-2 px-5 lg:px-7 border rounded-lg text-red-500 border-red-500"
+        >
           Prijavi se
-        </button>
+        </Link>
       </div>
       <RiMenu3Fill className="text-red-500 text-2xl md:hidden" />
     </nav>

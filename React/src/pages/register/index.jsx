@@ -1,6 +1,7 @@
 import { useState } from "react";
 import image from "../../assets/register.jpg";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +14,9 @@ const Register = () => {
     is_active: true,
     password: "",
   });
+  const [message, setMessage] = useState("");
+  const [isError, setIsError] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,6 +25,12 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (formData.password.length < 6) {
+      setMessage("Lozinka mora imati najmanje 6 karaktera.");
+      setIsError(true);
+      return;
+    }
 
     try {
       const response = await axios.post(
@@ -32,9 +42,31 @@ const Register = () => {
           },
         }
       );
-      console.log("Submitted successfully: ", response.data);
+
+      const { access_token } = response.data;
+
+      if (access_token) {
+        localStorage.setItem("access_token", access_token);
+        setMessage("Korisnik je uspješno kreiran!");
+        setIsError(false);
+
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      }
     } catch (error) {
-      console.error("Error: ", error);
+      if (error.response) {
+        if (error.response.status === 400) {
+          setMessage("E-mail već postoji.");
+        } else if (error.response.status === 500) {
+          setMessage("Greška na serveru. Pokušajte kasnije.");
+        } else {
+          setMessage("Nešto je pošlo po zlu. Pokušajte ponovo.");
+        }
+      } else {
+        setMessage("Nema odgovora sa servera. Provjerite vezu.");
+      }
+      setIsError(true);
     }
   };
 
@@ -50,6 +82,17 @@ const Register = () => {
         <p className="text-sm mt-2 mb-5 lg:mb-9 text-[#A1A1A1]">
           -------- Auto Diler --------
         </p>
+        {message && (
+          <div
+            className={`text-sm mb-4 p-3 rounded-md ${
+              isError
+                ? "bg-red-200 text-red-700"
+                : "bg-green-200 text-green-700"
+            }`}
+          >
+            {message}
+          </div>
+        )}
         <form
           onSubmit={handleSubmit}
           className="flex flex-col justify-center items-center gap-4 [&_label]:text-start"
@@ -103,6 +146,7 @@ const Register = () => {
               placeholder="Lozinka"
               className="py-2 px-2 border-2 border-[#A1A1A1]/50 rounded-md w-full"
             />
+            <p className="text-xs text-[#EA3C3C]">Najmanje 6 karaktera</p>
           </label>
           <label className="w-full">
             <span>Broj telefona:</span>
