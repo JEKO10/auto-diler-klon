@@ -1,7 +1,7 @@
 import { useState } from "react";
 import image from "../../assets/login.jpg";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../contexts/AuthContext";
+import { loginUser } from "../../sevices/authService";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +10,7 @@ const Login = () => {
   });
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
-  const navigate = useNavigate();
+  const { login } = useAuthContext();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,37 +20,18 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.password.length < 6) {
-      setMessage("Lozinka mora imati najmanje 6 karaktera.");
-      setIsError(true);
-      return;
-    }
-
     try {
       const body = new URLSearchParams({
         username: formData.username,
         password: formData.password,
       });
-
-      const response = await axios.post(
-        "https://ce1d-79-140-150-179.ngrok-free.app/login",
-        body,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
+      const response = await loginUser(body);
       const { access_token } = response.data;
 
       if (access_token) {
-        localStorage.setItem("access_token", access_token);
-        setMessage("Uspješno ste prijavljeni!");
+        login(access_token);
+        setMessage("Uspješno ste se prijavili!");
         setIsError(false);
-
-        setTimeout(() => {
-          navigate("/");
-        }, 1000);
       }
     } catch (error) {
       if (error.response) {
@@ -65,7 +46,6 @@ const Login = () => {
         setMessage("Nema odgovora sa servera. Provjerite vezu.");
       }
       setIsError(true);
-      console.error("Error: ", error);
     }
   };
 
@@ -73,7 +53,7 @@ const Login = () => {
     <section className="flex flex-col md:flex-row">
       <img
         src={image}
-        alt="Register"
+        alt="Login"
         className="h-[100vh] w-1/2 hidden md:block"
       />
       <article className="text-center py-10 px-5 lg:px-10 w-full md:w-1/2">

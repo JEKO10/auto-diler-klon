@@ -1,9 +1,10 @@
 import { Navigate } from "react-router-dom";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 export const PrivateRoute = ({ element }) => {
-  const access_token = localStorage.getItem("access_token");
+  const { isAuthenticated } = useAuthContext();
 
-  if (!access_token) return <Navigate to="/login" />;
+  if (!isAuthenticated) return <Navigate to="/login" />;
 
   return element;
 };

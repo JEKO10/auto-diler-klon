@@ -1,9 +1,10 @@
 import { Navigate } from "react-router-dom";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 export const PublicRoute = ({ element }) => {
-  const access_token = localStorage.getItem("access_token");
+  const { isAuthenticated } = useAuthContext();
 
-  if (access_token) return <Navigate to="/" />;
+  if (isAuthenticated) return <Navigate to="/" />;
 
   return element;
 };
