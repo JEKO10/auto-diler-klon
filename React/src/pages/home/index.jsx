@@ -1,3 +1,4 @@
+import FilterForm from "./components/FilterForm";
 import Navbar from "../../components/Navbar";
 import HeroSection from "./components/HeroSection";
 
@@ -6,6 +7,7 @@ const Home = () => {
     <div className="home">
       <Navbar />
       <HeroSection />
+      <FilterForm />
     </div>
   );
 };
