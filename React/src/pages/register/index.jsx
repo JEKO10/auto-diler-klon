@@ -12,6 +12,7 @@ const Register = () => {
     has_whatsapp: true,
     is_active: true,
     password: "",
+    confirmPassword: "",
   });
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
@@ -101,6 +102,19 @@ const Register = () => {
               onChange={handleChange}
               required
               placeholder="Lozinka"
+              className="py-2 px-2 border-2 border-[#A1A1A1]/50 rounded-md w-full"
+            />
+            {/* <p className="text-xs text-[#EA3C3C]">Najmanje 6 karaktera</p> */}
+          </label>
+          <label className="w-full">
+            <span>Potvrdi lozinku:</span>
+            <input
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              required
+              placeholder="Potvrdi lozinku"
               className="py-2 px-2 border-2 border-[#A1A1A1]/50 rounded-md w-full"
             />
             {/* <p className="text-xs text-[#EA3C3C]">Najmanje 6 karaktera</p> */}

@@ -30,6 +30,12 @@ export const AuthProvider = ({ children }) => {
       return;
     }
 
+    if (formData.password !== formData.confirmPassword) {
+      setMessage("Lozinke se ne podudaraju!");
+      setIsError(true);
+      return;
+    }
+
     try {
       const response = await registerUser(formData);
       const { access_token } = response.data;
