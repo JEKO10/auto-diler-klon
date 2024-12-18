@@ -4,7 +4,7 @@ import { MdOutlineMailOutline } from "react-icons/md";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#8c1010e5] text-white p-5 sm:px-10 sm:pt-10">
+    <footer className="bg-[#8c1010e5] text-white font-poppins p-5 sm:px-10 sm:pt-10">
       <svg
         width="24"
         height="26"

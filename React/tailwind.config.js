@@ -8,6 +8,10 @@ export default {
         body: "rgba(var(--body))",
         text: "rgba(var(--text))",
       },
+      fontFamily: {
+        poppins: ["Poppins", "sans-serif"],
+        inter: ["inter", "serif"],
+      },
     },
   },
   plugins: [],

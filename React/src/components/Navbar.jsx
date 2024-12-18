@@ -6,7 +6,7 @@ const Navbar = () => {
   const { logout, isAuthenticated } = useAuthContext();
 
   return (
-    <nav className="flex justify-between items-center py-4 xl:py-7 px-5 lg:px-10">
+    <nav className="font-inter flex justify-between items-center py-4 xl:py-7 px-5 lg:px-10">
       <div>
         <svg
           width="24"

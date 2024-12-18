@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const AutoShop = () => {
   return (
-    <section className="shop my-20 text-white">
+    <section className="shop font-inter my-20 text-white">
       <article className="py-14 sm:px-5 md:px-10 md:max-w-[448px]">
         <div className="mb-44 text-center sm:text-start">
           <h3 className="text-4xl font-bold mb-5">Auto Shop</h3>
