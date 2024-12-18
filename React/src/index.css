@@ -8,8 +8,9 @@ body {
 
 .home {
   background-image: url("/src/assets/heroBg.png");
-  background-size: cover;
   background-repeat: no-repeat;
+  background-size: 100% 10%;
+  background-position: 105% 30px;
 }
 
 .shop {
@@ -36,16 +37,21 @@ body {
   --text: 255, 255, 255;
 }
 
+@media (min-width: 640px) {
+  .home {
+    background-size: 70% 15%;
+  }
+}
+
 @media (min-width: 768px) {
   .home {
-    background-size: 60% 50%;
-    background-position: 103% 30px;
+    background-size: 55% 15%;
   }
 }
 
 @media (min-width: 1024px) {
   .home {
-    background-size: 50% 50%;
+    background-size: 55% 25%;
   }
 
   .shop p {

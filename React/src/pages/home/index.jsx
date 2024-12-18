@@ -4,6 +4,7 @@ import HeroSection from "./components/HeroSection";
 import AutoShop from "./components/AutoShop";
 import Footer from "../../components/Footer";
 import PlatformNumbers from "./components/PlatformNumbers";
+import CarListing from "./components/CarListing";
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
       <Navbar />
       <HeroSection />
       <FilterForm />
+      <CarListing />
       <PlatformNumbers />
       <AutoShop />
       <Footer />
