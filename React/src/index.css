@@ -12,6 +12,20 @@ body {
   background-repeat: no-repeat;
 }
 
+.shop {
+  background-image: url("/src/assets/shop.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 70vh;
+}
+
+.shop p {
+  background-color: rgba(0, 0, 0, 0.4);
+  text-shadow: #000 1px 1px 5px;
+  padding: 20px 10px;
+}
+
 .light {
   --body: 255, 255, 255;
   --text: 0, 0, 0;
@@ -24,13 +38,18 @@ body {
 
 @media (min-width: 768px) {
   .home {
-    background-size: 60% 80%;
+    background-size: 60% 50%;
     background-position: 103% 30px;
   }
 }
 
 @media (min-width: 1024px) {
   .home {
-    background-size: 50% 80%;
+    background-size: 50% 50%;
+  }
+
+  .shop p {
+    background: none;
+    padding: 0;
   }
 }
