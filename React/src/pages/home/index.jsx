@@ -2,6 +2,7 @@ import FilterForm from "./components/FilterForm";
 import Navbar from "../../components/Navbar";
 import HeroSection from "./components/HeroSection";
 import AutoShop from "./components/AutoShop";
+import Footer from "../../components/Footer";
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
       <HeroSection />
       <FilterForm />
       <AutoShop />
+      <Footer />
     </div>
   );
 };
