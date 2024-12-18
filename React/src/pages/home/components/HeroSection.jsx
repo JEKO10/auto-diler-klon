@@ -18,7 +18,7 @@ const HeroSection = () => {
           </div>
           <div>
             <p className="text-4xl font-bold">10k+</p>
-            <p className="text-gray-600 text-sm">Zadovoljnih klijenata</p>
+            <p className="text-gray-600 text-sm">Zadovoljnih korisnika</p>
           </div>
         </div>
       </div>

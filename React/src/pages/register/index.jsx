@@ -103,7 +103,7 @@ const Register = () => {
               placeholder="Lozinka"
               className="py-2 px-2 border-2 border-[#A1A1A1]/50 rounded-md w-full"
             />
-            <p className="text-xs text-[#EA3C3C]">Najmanje 6 karaktera</p>
+            {/* <p className="text-xs text-[#EA3C3C]">Najmanje 6 karaktera</p> */}
           </label>
           <label className="w-full">
             <span>Broj telefona:</span>
