@@ -7,7 +7,7 @@ const Navbar = () => {
 
   return (
     <nav className="font-inter flex justify-between items-center py-4 xl:py-7 px-5 lg:px-10">
-      <div>
+      <Link to="/">
         <svg
           width="24"
           height="26"
@@ -48,7 +48,7 @@ const Navbar = () => {
             </clipPath>
           </defs>
         </svg>
-      </div>
+      </Link>
       <ul className="gap-6 items-center hidden md:flex [&>li]:lg:text-lg [&>li]:px-5 [&>li]:xl:px-10 [&>li]:cursor-pointer">
         <li>Početna</li>
         <li>Ponuda vozila</li>
