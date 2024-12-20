@@ -86,7 +86,7 @@ const Navbar = () => {
       ) : (
         <button
           onClick={logout}
-          className="text-xs md:text-sm lg:text-md py-1 lg:py-2 px-5 lg:px-7 bg-red-500 text-white rounded-lg"
+          className="hidden sm:block text-xs md:text-sm lg:text-md py-1 lg:py-2 px-5 lg:px-7 bg-red-500 text-white rounded-lg"
         >
           Odjavi se
         </button>
@@ -133,7 +133,7 @@ const Navbar = () => {
                 logout();
                 toggleNav();
               }}
-              className="bg-red-500 text-white text-sm py-2 px-5 rounded-lg"
+              className="bg-red-500 text-white text-sm py-2 px-5 rounded-lg mt-80"
             >
               Odjavi se
             </button>

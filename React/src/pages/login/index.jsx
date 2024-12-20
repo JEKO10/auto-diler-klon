@@ -1,7 +1,6 @@
 import { useState, useTransition } from "react";
 import image from "../../assets/login.jpg";
 import { useAuthContext } from "../../contexts/AuthContext";
-import { loginUser } from "../../sevices/authService";
 import { Link } from "react-router-dom";
 
 const Login = () => {
@@ -22,38 +21,26 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (formData.password.length < 6) {
-      setMessage("Lozinka mora imati najmanje 6 karaktera.");
-      setIsError(true);
-      return;
-    }
-
     startTransition(async () => {
       try {
-        const body = new URLSearchParams({
-          username: formData.username,
-          password: formData.password,
-        });
-
-        const response = await loginUser(body);
-        const { access_token } = response.data;
-
-        if (access_token) {
-          login(access_token);
-          setMessage("Uspješno ste se prijavili!");
-          setIsError(false);
-        }
+        await login(formData);
+        setMessage("Uspješno ste se prijavili!");
+        setIsError(false);
       } catch (error) {
         if (error.response) {
           if (error.response.status === 401) {
             setMessage("Pogrešan e-mail ili lozinka.");
+          } else if (error.response.status === 404) {
+            setMessage("Korisnik ne postoji.");
+          } else if (error.response.status === 422) {
+            setMessage("Uneseni podaci nisu validni. Provjerite formu.");
           } else if (error.response.status === 500) {
             setMessage("Greška na serveru. Pokušajte kasnije.");
           } else {
             setMessage("Nešto je pošlo po zlu. Pokušajte ponovo.");
           }
         } else {
-          setMessage("Nema odgovora sa servera. Provjerite vezu.");
+          setMessage("Nema odgovora sa servera. Provjerite mrežu.");
         }
         setIsError(true);
       }

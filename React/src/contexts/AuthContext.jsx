@@ -1,5 +1,5 @@
 import { createContext, useState, useContext } from "react";
-import { registerUser } from "../sevices/authService";
+import { loginUser, registerUser } from "../services/authService";
 
 const authContext = createContext({});
 
@@ -11,16 +11,15 @@ export const AuthProvider = ({ children }) => {
   );
   const [isAuthenticated, setIsAuthenticated] = useState(!!authToken);
 
-  const login = (token) => {
-    localStorage.setItem("access_token", token);
-    setAuthToken(token);
-    setIsAuthenticated(true);
-  };
+  const login = async (formData) => {
+    const response = await loginUser(formData);
+    const { access_token } = response.data;
 
-  const logout = () => {
-    localStorage.removeItem("access_token");
-    setAuthToken(null);
-    setIsAuthenticated(false);
+    if (access_token) {
+      localStorage.setItem("access_token", access_token);
+      setAuthToken(access_token);
+      setIsAuthenticated(true);
+    }
   };
 
   const register = async (formData, setMessage, setIsError) => {
@@ -36,29 +35,20 @@ export const AuthProvider = ({ children }) => {
       return;
     }
 
-    try {
-      const response = await registerUser(formData);
-      const { access_token } = response.data;
+    const response = await registerUser(formData);
+    const { access_token } = response.data;
 
-      if (access_token) {
-        login(access_token);
-        setMessage("Korisnik je uspješno kreiran!");
-        setIsError(false);
-      }
-    } catch (error) {
-      if (error.response) {
-        if (error.response.status === 400) {
-          setMessage("E-mail već postoji.");
-        } else if (error.response.status === 500) {
-          setMessage("Greška na serveru. Pokušajte kasnije.");
-        } else {
-          setMessage("Nešto je pošlo po zlu. Pokušajte ponovo.");
-        }
-      } else {
-        setMessage("Nema odgovora sa servera. Provjerite vezu.");
-      }
-      setIsError(true);
+    if (access_token) {
+      login({ username: formData.email, password: formData.password });
+      setMessage("Korisnik je uspješno kreiran!");
+      setIsError(false);
     }
+  };
+
+  const logout = () => {
+    localStorage.removeItem("access_token");
+    setAuthToken(null);
+    setIsAuthenticated(false);
   };
 
   return (

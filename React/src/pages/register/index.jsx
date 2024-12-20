@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import image from "../../assets/register.jpg";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { Link } from "react-router-dom";
@@ -18,15 +18,36 @@ const Register = () => {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const { register } = useAuthContext();
+  const [isPending, startTransition] = useTransition();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    register(formData, setMessage, setIsError);
+
+    startTransition(async () => {
+      try {
+        await register(formData, setMessage, setIsError);
+      } catch (error) {
+        if (error.response) {
+          if (error.response.status === 400) {
+            setMessage("E-mail već postoji.");
+          } else if (error.response.status === 422) {
+            setMessage("Uneseni podaci nisu validni. Provjerite formu.");
+          } else if (error.response.status === 500) {
+            setMessage("Greška na serveru. Pokušajte ponovo.");
+          } else {
+            setMessage("Nešto je pošlo po zlu. Pokušajte ponovo.");
+          }
+        } else {
+          setMessage("Greška u konekciji. Proverite mrežu.");
+        }
+        setIsError(true);
+      }
+    });
   };
 
   return (
@@ -133,9 +154,10 @@ const Register = () => {
           </label>
           <button
             type="submit"
+            disabled={isPending}
             className="bg-red-500 text-white w-full rounded-md py-2 lg:mt-5"
           >
-            Registruj se
+            {isPending ? "Registrovanje..." : "Registruj se"}
           </button>
         </form>
         <div className="w-full text-start mt-3">
