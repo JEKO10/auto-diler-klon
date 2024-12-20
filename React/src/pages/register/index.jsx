@@ -25,8 +25,19 @@ const Register = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const validatePhoneNumber = (value) => {
+    const phoneRegex = /^\+?\d{8,15}$/;
+    return phoneRegex.test(value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!validatePhoneNumber(formData.phone_number)) {
+      setMessage("Unesite validan broj telefona (npr. +38268112221).");
+      setIsError(true);
+      return;
+    }
 
     startTransition(async () => {
       try {
