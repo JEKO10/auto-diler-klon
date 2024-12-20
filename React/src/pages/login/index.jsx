@@ -2,6 +2,7 @@ import { useState, useTransition } from "react";
 import image from "../../assets/login.jpg";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { loginUser } from "../../sevices/authService";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -64,7 +65,7 @@ const Login = () => {
       <img
         src={image}
         alt="Login"
-        className="h-[100vh] w-1/2 hidden md:block"
+        className="h-[100vh] w-[70%] lg:w-[60%] -ml-36 lg:ml-0 hidden md:block"
       />
       <article className="text-center py-10 px-5 lg:px-10 w-full md:w-1/2">
         <h2 className="text-3xl">Prijavi se</h2>
@@ -118,6 +119,11 @@ const Login = () => {
             {isPending ? "Prijavljivanje..." : "Prijavi se"}
           </button>
         </form>
+        <div className="w-full text-start mt-3">
+          <Link to="/register" className="text-red-500">
+            Nemate nalog?
+          </Link>
+        </div>
       </article>
     </section>
   );

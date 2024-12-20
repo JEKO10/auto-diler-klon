@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const registerUser = async (formData) => {
   return await axios.post(
-    "https://ce1d-79-140-150-179.ngrok-free.app/register",
+    "https://5ca4-79-140-150-98.ngrok-free.app/register",
     formData,
     {
       headers: { "Content-Type": "application/json" },
@@ -12,7 +12,7 @@ export const registerUser = async (formData) => {
 
 export const loginUser = async (formData) => {
   return await axios.post(
-    "https://ce1d-79-140-150-179.ngrok-free.app/login",
+    "https://5ca4-79-140-150-98.ngrok-free.app/login",
     formData,
     {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },

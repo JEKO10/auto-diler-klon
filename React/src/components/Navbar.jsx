@@ -1,12 +1,25 @@
-import { RiMenu3Fill } from "react-icons/ri";
+import { RiMenu3Fill, RiCloseFill } from "react-icons/ri";
+
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
+import { useState } from "react";
 
 const Navbar = () => {
+  const [isNavOpen, setIsNavOpen] = useState(false);
   const { logout, isAuthenticated } = useAuthContext();
 
+  const toggleNav = () => {
+    setIsNavOpen((prev) => !prev);
+  };
+
+  if (isNavOpen) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "auto";
+  }
+
   return (
-    <nav className="font-inter flex justify-between items-center py-4 xl:py-7 px-5 lg:px-10">
+    <nav className="font-inter flex justify-between items-center py-5 sm:py-7 md:py-4 lg:py-7 xl:py-10 px-5 lg:px-10">
       <Link to="/">
         <svg
           width="24"
@@ -14,7 +27,7 @@ const Navbar = () => {
           viewBox="0 0 24 26"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="w-5 h-5 lg:w-6 xl:w-10 lg:h-6 xl:h-10"
+          className="w-7 h-7 xl:w-10 xl:h-10"
         >
           <g clipPath="url(#clip0_4_3488)">
             <path
@@ -78,7 +91,55 @@ const Navbar = () => {
           Odjavi se
         </button>
       )}
-      <RiMenu3Fill className="text-red-500 text-2xl md:hidden" />
+      {!isNavOpen ? (
+        <RiMenu3Fill
+          className="text-red-500 text-3xl z-30 md:hidden cursor-pointer"
+          onClick={toggleNav}
+        />
+      ) : (
+        <RiCloseFill
+          className="text-red-500 text-4xl z-30 md:hidden cursor-pointer"
+          onClick={toggleNav}
+        />
+      )}
+      {isNavOpen && (
+        <div className="h-full w-full absolute top-0 right-0 bg-black/90 text-white shadow-lg flex flex-col px-5 py-16 md:hidden z-20">
+          <ul className="flex flex-col justify-center items-center gap-5 [&>li]:text-lg [&>li]:cursor-pointer">
+            <li>Početna</li>
+            <li>Ponuda vozila</li>
+            <li>Prodajem</li>
+            <li>Usluge</li>
+          </ul>
+          {!isAuthenticated ? (
+            <div className="flex flex-col gap-2 mt-64">
+              <Link
+                to="/register"
+                className="bg-red-500 text-white text-sm py-2 px-5 rounded-lg text-center"
+                onClick={toggleNav}
+              >
+                Registruj se
+              </Link>
+              <Link
+                to="/login"
+                className="text-red-500 text-sm py-2 px-5 border rounded-lg border-red-500 text-center"
+                onClick={toggleNav}
+              >
+                Prijavi se
+              </Link>
+            </div>
+          ) : (
+            <button
+              onClick={() => {
+                logout();
+                toggleNav();
+              }}
+              className="bg-red-500 text-white text-sm py-2 px-5 rounded-lg"
+            >
+              Odjavi se
+            </button>
+          )}
+        </div>
+      )}
     </nav>
   );
 };

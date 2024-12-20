@@ -1,6 +1,7 @@
 import { useState } from "react";
 import image from "../../assets/register.jpg";
 import { useAuthContext } from "../../contexts/AuthContext";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -33,11 +34,11 @@ const Register = () => {
       <img
         src={image}
         alt="Register"
-        className="h-[100vh] w-[60%] hidden md:block"
+        className="h-[100vh] w-[70%] lg:w-[60%] -ml-36 lg:ml-0 hidden md:block"
       />
       <article className="text-center py-10 px-5 lg:px-10 w-full md:w-1/2">
         <h2 className="text-3xl">Kreiraj nalog</h2>
-        <p className="text-sm mt-2 mb-5 lg:mb-9 text-[#A1A1A1]">
+        <p className="text-sm mt-2 mb-5 text-[#A1A1A1]">
           -------- Auto Diler --------
         </p>
         {message && (
@@ -53,7 +54,7 @@ const Register = () => {
         )}
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col justify-center items-center gap-4 [&_label]:text-start"
+          className="flex flex-col justify-center items-center gap-3 [&_label]:text-start"
         >
           <div className="flex gap-4 w-full">
             <label className="flex-1">
@@ -117,7 +118,6 @@ const Register = () => {
               placeholder="Potvrdi lozinku"
               className="py-2 px-2 border-2 border-[#A1A1A1]/50 rounded-md w-full"
             />
-            {/* <p className="text-xs text-[#EA3C3C]">Najmanje 6 karaktera</p> */}
           </label>
           <label className="w-full">
             <span>Broj telefona:</span>
@@ -133,11 +133,16 @@ const Register = () => {
           </label>
           <button
             type="submit"
-            className="bg-[#EA3C3C] text-white w-full rounded-md py-2 lg:mt-5"
+            className="bg-red-500 text-white w-full rounded-md py-2 lg:mt-5"
           >
             Registruj se
           </button>
         </form>
+        <div className="w-full text-start mt-3">
+          <Link to="/login" className="text-red-500">
+            Već imate nalog?
+          </Link>
+        </div>
       </article>
     </section>
   );
