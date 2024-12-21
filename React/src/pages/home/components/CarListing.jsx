@@ -49,7 +49,7 @@ const carData = [
 
 const CarListing = () => {
   return (
-    <section className="my-10 p-8">
+    <section className="my-10 p-8 text-text">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">Najnoviji automobili</h2>
         <button className="text-red-500 font-medium hover:underline">

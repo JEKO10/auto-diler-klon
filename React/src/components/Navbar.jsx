@@ -3,6 +3,7 @@ import { RiMenu3Fill, RiCloseFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
 import { useState } from "react";
+import ToggleTheme from "./ToggleTheme";
 
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -62,7 +63,7 @@ const Navbar = () => {
           </defs>
         </svg>
       </Link>
-      <ul className="gap-6 items-center hidden md:flex [&>li]:lg:text-lg [&>li]:px-5 [&>li]:xl:px-10 [&>li]:cursor-pointer">
+      <ul className="gap-6 items-center hidden md:flex [&>li]:lg:text-text [&>li]:lg:text-lg [&>li]:px-5 [&>li]:xl:px-10 [&>li]:cursor-pointer">
         <li>Početna</li>
         <li>Ponuda vozila</li>
         <li>Prodajem</li>
@@ -72,13 +73,13 @@ const Navbar = () => {
         <div className="gap-2 hidden sm:flex md:flex-col lg:flex-row">
           <Link
             to="/register"
-            className="bg-red-500 text-white text-xs md:text-sm lg:text-md py-1 lg:py-2 px-5 lg:px-7 rounded-lg"
+            className="bg-red-500 text-white text-xs md:text-sm lg:text-md py-1 lg:py-2 px-5 lg:px-7 border border-transparent rounded-lg transition hover:bg-white hover:text-red-500 hover:border-red-500"
           >
             Registruj se
           </Link>
           <Link
             to="/login"
-            className="text-red-500 text-xs md:text-sm lg:text-md py-1 lg:py-2 px-5 lg:px-7 border rounded-lg  border-red-500"
+            className="text-red-500 text-xs md:text-sm lg:text-md py-1 lg:py-2 px-5 lg:px-7 border rounded-lg border-red-500"
           >
             Prijavi se
           </Link>
@@ -140,6 +141,7 @@ const Navbar = () => {
           )}
         </div>
       )}
+      <ToggleTheme />
     </nav>
   );
 };

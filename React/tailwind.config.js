@@ -7,6 +7,7 @@ export default {
       colors: {
         body: "rgba(var(--body))",
         text: "rgba(var(--text))",
+        primary: "rgba(var(--primary))",
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],

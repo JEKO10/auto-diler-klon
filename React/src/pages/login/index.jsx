@@ -48,7 +48,7 @@ const Login = () => {
   };
 
   return (
-    <section className="flex flex-col md:flex-row">
+    <section className="flex flex-col md:flex-row text-text">
       <img
         src={image}
         alt="Login"
@@ -72,7 +72,7 @@ const Login = () => {
         )}
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col justify-center items-center gap-4 [&_label]:text-start"
+          className="flex flex-col justify-center items-center gap-4 [&_input]:bg-body [&_input]:text-text [&_label]:text-start"
         >
           <label className="w-full">
             <span>E-mail:</span>

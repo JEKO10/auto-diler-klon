@@ -30,11 +30,13 @@ body {
 .light {
   --body: 255, 255, 255;
   --text: 0, 0, 0;
+  --primary: 209, 213, 219;
 }
 
 .dark {
   --body: 0, 0, 0;
   --text: 255, 255, 255;
+  --primary: 239, 68, 68;
 }
 
 @media (min-width: 640px) {

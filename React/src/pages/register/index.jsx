@@ -62,7 +62,7 @@ const Register = () => {
   };
 
   return (
-    <section className="flex flex-col md:flex-row">
+    <section className="flex flex-col md:flex-row text-text">
       <img
         src={image}
         alt="Register"
@@ -86,7 +86,7 @@ const Register = () => {
         )}
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col justify-center items-center gap-3 [&_label]:text-start"
+          className="flex flex-col justify-center items-center gap-3 [&_input]:bg-body [&_input]:text-text [&_label]:text-start"
         >
           <div className="flex gap-4 w-full">
             <label className="flex-1">
