@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const authApi = axios.create({
-  baseURL: "https://5ca4-79-140-150-98.ngrok-free.app/",
+  baseURL: "https://074a-79-140-150-241.ngrok-free.app/",
   timeout: 3000,
   headers: { "Content-Type": "application/json" },
 });

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Navbar from "../../components/Navbar";
 import axios from "axios";
 import { useAuthContext } from "../../contexts/AuthContext";
 
@@ -12,7 +11,7 @@ const Profile = () => {
     try {
       const config = {
         method: "get",
-        url: "https://5ca4-79-140-150-98.ngrok-free.app/me",
+        url: "https://074a-79-140-150-241.ngrok-free.app/me",
         headers: {
           Authorization: `Bearer ${authToken}`,
           Accept: "application/json",
@@ -34,32 +33,29 @@ const Profile = () => {
   }, []);
 
   return (
-    <>
-      <Navbar />
-      <div className="p-6">
-        <h2 className="text-2xl font-bold mb-4">Profile</h2>
-        {error ? (
-          <p className="text-red-500">{error}</p>
-        ) : user ? (
-          <div className="space-y-2">
-            <p>
-              <strong>Ime:</strong> {user.first_name}
-            </p>
-            <p>
-              <strong>Prezime:</strong> {user.last_name}
-            </p>
-            <p>
-              <strong>Email:</strong> {user.email}
-            </p>
-            <p>
-              <strong>Broj telefona:</strong> {user.phone_number}
-            </p>
-          </div>
-        ) : (
-          <p>Preuzimanje informacija o korisniku...</p>
-        )}
-      </div>
-    </>
+    <div className="p-6">
+      <h2 className="text-2xl font-bold mb-4">Profile</h2>
+      {error ? (
+        <p className="text-red-500">{error}</p>
+      ) : user ? (
+        <div className="space-y-2">
+          <p>
+            <strong>Ime:</strong> {user.first_name}
+          </p>
+          <p>
+            <strong>Prezime:</strong> {user.last_name}
+          </p>
+          <p>
+            <strong>Email:</strong> {user.email}
+          </p>
+          <p>
+            <strong>Broj telefona:</strong> {user.phone_number}
+          </p>
+        </div>
+      ) : (
+        <p>Preuzimanje informacija o korisniku...</p>
+      )}
+    </div>
   );
 };
 
