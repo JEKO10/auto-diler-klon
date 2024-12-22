@@ -3,7 +3,11 @@ import axios from "axios";
 const authApi = axios.create({
   baseURL: "https://074a-79-140-150-241.ngrok-free.app/",
   timeout: 3000,
-  headers: { "Content-Type": "application/json" },
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+    "ngrok-skip-browser-warning": "69420",
+  },
 });
 
 authApi.interceptors.request.use(
@@ -26,5 +30,24 @@ authApi.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+export const callAuthUser = async (
+  endpoint,
+  formData,
+  contentType = "application/json"
+) => {
+  const config = {
+    headers: {
+      "Content-Type": contentType,
+    },
+  };
+
+  const data =
+    contentType === "application/x-www-form-urlencoded"
+      ? new URLSearchParams(formData)
+      : formData;
+
+  return await authApi.post(endpoint, data, config);
+};
 
 export default authApi;

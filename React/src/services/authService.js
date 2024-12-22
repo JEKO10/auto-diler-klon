@@ -1,28 +1,9 @@
-import authApi from "../api/authApi";
-
-export const authUser = async (
-  endpoint,
-  formData,
-  contentType = "application/json"
-) => {
-  const config = {
-    headers: {
-      "Content-Type": contentType,
-    },
-  };
-
-  const data =
-    contentType === "application/x-www-form-urlencoded"
-      ? new URLSearchParams(formData)
-      : formData;
-
-  return await authApi.post(endpoint, data, config);
-};
+import { callAuthUser } from "../api/authApi";
 
 export const registerUser = (formData) => {
-  return authUser("/register", formData);
+  return callAuthUser("/register", formData);
 };
 
 export const loginUser = (formData) => {
-  return authUser("/login", formData, "application/x-www-form-urlencoded");
+  return callAuthUser("/login", formData, "application/x-www-form-urlencoded");
 };

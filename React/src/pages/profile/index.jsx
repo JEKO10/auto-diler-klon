@@ -1,24 +1,13 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { useAuthContext } from "../../contexts/AuthContext";
+import { getUserProfile } from "../../services/userService";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
-  const { authToken } = useAuthContext();
 
-  const getUser = async () => {
+  const getUserData = async () => {
     try {
-      const config = {
-        method: "get",
-        url: "https://074a-79-140-150-241.ngrok-free.app/me",
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-          Accept: "application/json",
-          "ngrok-skip-browser-warning": "69420",
-        },
-      };
-      const response = await axios(config);
+      const response = await getUserProfile();
       setUser(response.data);
     } catch (err) {
       setError(
@@ -29,7 +18,7 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    getUser();
+    getUserData();
   }, []);
 
   return (
