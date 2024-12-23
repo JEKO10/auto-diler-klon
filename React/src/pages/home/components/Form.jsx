@@ -44,14 +44,40 @@ const Form = () => {
     equipmentCategories: [],
     equipments: [],
   });
+  const [filteredModels, setFilteredModels] = useState([]);
+  const [filteredBodyTypes, setFilteredBodyTypes] = useState([]);
+  const [filteredEquipments, setFilteredEquipments] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFilters({ ...filters, [name]: value });
+
+    if (name === "brand") {
+      const modelsByBrand = vehicleOptions.models.filter(
+        (model) => model.brand_id === parseInt(value)
+      );
+      setFilteredModels(modelsByBrand);
+      setFilters((prev) => ({ ...prev, model: "" }));
+    }
+
+    if (name === "vehicleType") {
+      const filteredTypes = vehicleOptions.bodyTypes.filter(
+        (type) => type.vehicle_type_id === parseInt(value)
+      );
+      setFilteredBodyTypes(filteredTypes);
+    }
+
+    if (name === "equipmentCategory") {
+      const filteredEquipments = vehicleOptions.equipments.filter(
+        (equipment) => equipment.category_id === parseInt(value)
+      );
+      setFilteredEquipments(filteredEquipments);
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("Filters: ", filters);
   };
 
   useEffect(() => {
@@ -104,102 +130,124 @@ const Form = () => {
     fetchData();
   }, []);
 
+  const uniqueCountries = Array.from(
+    new Map(
+      vehicleOptions.locations.map((item) => [
+        item.country,
+        { id: item.id, name: item.country },
+      ])
+    ).values()
+  );
+
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col flex-wrap md:flex-row items-center gap-4 [&>div]:border-primary [&_input]:bg-body [&_input]:text-text"
+      className="flex flex-col flex-wrap md:flex-row items-center gap-4 [&_input]:bg-body [&_input]:text-text"
     >
       <FilterField
         name="vehicleType"
         placeholder="Vrsta vozila"
         vehicleOptions={vehicleOptions.vehicleTypes}
         value={filters.vehicleType}
-        onChange={handleChange}
+        handleChange={handleChange}
+      />
+      <FilterField
+        name="bodyType"
+        placeholder="Karoserija"
+        vehicleOptions={filteredBodyTypes}
+        value={filters.bodyType}
+        handleChange={handleChange}
+        disabled={!filters.vehicleType}
       />
       <FilterField
         name="brand"
         placeholder="Marka"
         vehicleOptions={vehicleOptions.brands}
         value={filters.brand}
-        onChange={handleChange}
+        handleChange={handleChange}
       />
       <FilterField
         name="model"
         placeholder="Model"
-        vehicleOptions={vehicleOptions.models}
+        vehicleOptions={filteredModels}
         value={filters.model}
-        onChange={handleChange}
+        handleChange={handleChange}
+        disabled={!filters.brand}
       />
       <FilterField
         name="fuel"
         placeholder="Gorivo"
         vehicleOptions={vehicleOptions.fuels}
         value={filters.fuel}
-        onChange={handleChange}
+        handleChange={handleChange}
       />
       <FilterField
-        name="bodyType"
-        placeholder="Karoserija"
-        vehicleOptions={vehicleOptions.bodyTypes}
-        value={filters.bodyType}
-        onChange={handleChange}
-      />
-      <FilterField
-        name="equipmentCategories"
+        name="equipmentCategory"
         placeholder="Kategorija opreme"
         vehicleOptions={vehicleOptions.equipmentCategories}
-        value={filters.equipmentCategories}
-        onChange={handleChange}
+        value={filters.equipmentCategory}
+        handleChange={handleChange}
       />
       <FilterField
         name="equipment"
         placeholder="Oprema"
-        vehicleOptions={vehicleOptions.equipments}
+        vehicleOptions={filteredEquipments}
         value={filters.equipment}
-        onChange={handleChange}
+        handleChange={handleChange}
+        disabled={!filters.equipmentCategory}
       />
       <FilterField
-        name="transmissions"
+        name="transmission"
         placeholder="Menjač"
         vehicleOptions={vehicleOptions.transmissions}
         value={filters.transmission}
-        onChange={handleChange}
+        handleChange={handleChange}
       />
       <FilterField
-        name="drivetrains"
+        name="drivetrain"
         placeholder="Pogoni"
         vehicleOptions={vehicleOptions.drivetrains}
         value={filters.drivetrain}
-        onChange={handleChange}
+        handleChange={handleChange}
       />
       <FilterField
-        name="emissions"
+        name="emission"
         placeholder="Emisije"
         vehicleOptions={vehicleOptions.emissions}
         value={filters.emission}
-        onChange={handleChange}
+        handleChange={handleChange}
       />
       <FilterField
-        name="country"
+        name="location"
         placeholder="Zemlja"
-        vehicleOptions={vehicleOptions.locations}
+        vehicleOptions={uniqueCountries}
         value={filters.location}
-        onChange={handleChange}
+        handleChange={handleChange}
       />
-      <FilterField
-        name="region"
-        placeholder="Region"
-        vehicleOptions={vehicleOptions.locations}
-        value={filters.location}
-        onChange={handleChange}
+      <div>
+        <input
+          type="number"
+          placeholder="Godište od"
+          className="w-36 mr-4 px-4 py-2 outline-none bg-body text-text border border-primary rounded-md"
+        />
+        <input
+          type="number"
+          placeholder="do"
+          className="w-24 px-4 py-2 outline-none bg-body text-text border border-primary rounded-md"
+        />
+      </div>
+      <input
+        type="number"
+        placeholder="Cijena do €"
+        className="px-4 py-2 outline-none bg-body text-text border border-primary rounded-md"
       />
-      <FilterField
+      {/* <FilterField
         name="city"
         placeholder="Grad"
         vehicleOptions={vehicleOptions.locations}
         value={filters.location}
-        onChange={handleChange}
-      />
+        handleChange={handleChange}
+      /> */}
       <button
         type="submit"
         className="bg-red-500 text-white w-full md:w-auto px-6 py-2 rounded-md font-medium"

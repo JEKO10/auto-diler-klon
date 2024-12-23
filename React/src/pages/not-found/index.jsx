@@ -1,8 +1,11 @@
 import Navbar from "../../components/Navbar";
 import ErrorImg from "../../assets/error.jpg";
 import { Link } from "react-router-dom";
+import { useTheme } from "../../contexts/ThemeProvider";
 
 const NotFound = () => {
+  const { theme } = useTheme();
+
   return (
     <>
       <Navbar />
@@ -15,11 +18,13 @@ const NotFound = () => {
         <Link to="/" className="text-xl text-red-500">
           Nazad na bezbjedno →
         </Link>
-        <img
-          src={ErrorImg}
-          alt="Error"
-          className="w-full sm:w-1/2 absolute right-0 bottom-0"
-        />
+        {theme === "light" && (
+          <img
+            src={ErrorImg}
+            alt="Error"
+            className="w-full sm:w-1/2 absolute right-0 bottom-0"
+          />
+        )}
       </section>
     </>
   );
