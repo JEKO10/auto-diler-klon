@@ -31,9 +31,10 @@ authApi.interceptors.response.use(
   }
 );
 
-export const callAuthUser = async (
+export const apiRequest = (
+  method,
   endpoint,
-  formData,
+  data = null,
   contentType = "application/json"
 ) => {
   const config = {
@@ -42,12 +43,16 @@ export const callAuthUser = async (
     },
   };
 
-  const data =
+  const payload =
     contentType === "application/x-www-form-urlencoded"
-      ? new URLSearchParams(formData)
-      : formData;
+      ? new URLSearchParams(data)
+      : data;
 
-  return await authApi.post(endpoint, data, config);
+  return authApi({
+    method,
+    url: endpoint,
+    data: payload,
+    ...config,
+  });
 };
-
 export default authApi;

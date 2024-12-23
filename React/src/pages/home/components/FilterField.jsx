@@ -1,21 +1,5 @@
 import PropTypes from "prop-types";
 
-FilterField.propTypes = {
-  placeholder: PropTypes.string.isRequired,
-  vehicleOptions: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string,
-      country: PropTypes.string,
-      region: PropTypes.string,
-      city: PropTypes.string,
-    })
-  ).isRequired,
-  value: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
-};
-
 const FilterField = ({
   placeholder,
   vehicleOptions,
@@ -46,6 +30,22 @@ const FilterField = ({
       </select>
     </div>
   );
+};
+
+FilterField.propTypes = {
+  placeholder: PropTypes.string.isRequired,
+  vehicleOptions: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string,
+      country: PropTypes.string,
+      region: PropTypes.string,
+      city: PropTypes.string,
+    })
+  ).isRequired,
+  value: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 
 export default FilterField;
