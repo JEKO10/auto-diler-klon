@@ -8,6 +8,7 @@ import { PrivateRoute } from "./routes/private";
 import { PublicRoute } from "./routes/public";
 import Create from "../pages/create";
 import { Layout } from "../layouts";
+import AllVehicles from "../pages/allVehicles";
 
 export const Router = () => {
   const router = createBrowserRouter([
@@ -26,6 +27,10 @@ export const Router = () => {
         {
           path: "create",
           element: <PrivateRoute element={<Create />} />,
+        },
+        {
+          path: "all",
+          element: <AllVehicles />,
         },
       ],
     },

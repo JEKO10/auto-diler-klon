@@ -64,8 +64,10 @@ const Navbar = () => {
         </svg>
       </Link>
       <ul className="gap-6 items-center hidden md:flex [&>li]:lg:text-text [&>li]:lg:text-lg [&>li]:px-5 [&>li]:xl:px-10 [&>li]:cursor-pointer">
-        <li>Početna</li>
-        <li>Ponuda vozila</li>
+        <li>Place</li>
+        <li>
+          <Link to="/all">Ponuda vozila</Link>
+        </li>
         <li>Prodajem</li>
         <li>Usluge</li>
       </ul>

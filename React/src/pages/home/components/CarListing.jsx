@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import CarCard from "./CarCard";
 
 const carData = [
@@ -47,14 +48,18 @@ const carData = [
   },
 ];
 
-const CarListing = () => {
+const CarListing = ({ isHome }) => {
   return (
     <section className="my-10 p-8 text-text">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold">Najnoviji automobili</h2>
-        <button className="text-red-500 font-medium hover:underline">
-          Vidi sve →
-        </button>
+        <h2 className="text-2xl font-bold">
+          {isHome ? "Najnoviji automobili" : "Svi oglasi"}
+        </h2>
+        {isHome && (
+          <Link to="/all" className="text-red-500 font-medium hover:underline">
+            Vidi sve →
+          </Link>
+        )}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {carData.map((car) => (

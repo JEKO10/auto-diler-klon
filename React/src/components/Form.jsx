@@ -11,7 +11,7 @@ import {
   getEquipmentsCategory,
   getEquipments,
   getLocations,
-} from "../../../services/vehicleService";
+} from "../services/vehicleService";
 import { useEffect, useState } from "react";
 
 const Form = () => {
@@ -238,8 +238,10 @@ const Form = () => {
       </div>
       <input
         type="number"
+        name="price"
         placeholder="Cijena do €"
         className="px-4 py-2 outline-none bg-body text-text border border-primary rounded-md"
+        onChange={handleChange}
       />
       {/* <FilterField
         name="city"

@@ -1,4 +1,4 @@
-import FilterForm from "./components/FilterForm";
+import FilterForm from "../../components/FilterForm";
 import HeroSection from "./components/HeroSection";
 import AutoShop from "./components/AutoShop";
 import PlatformNumbers from "./components/PlatformNumbers";
@@ -10,8 +10,8 @@ const Home = () => {
     <div className="home">
       <Navbar />
       <HeroSection />
-      <FilterForm />
-      <CarListing />
+      <FilterForm isHome={true} />
+      <CarListing isHome={true} />
       <PlatformNumbers />
       <AutoShop />
     </div>
