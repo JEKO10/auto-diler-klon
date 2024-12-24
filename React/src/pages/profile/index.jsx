@@ -11,10 +11,10 @@ const Profile = () => {
       const response = await getUserProfile();
       setUser(response.data);
     } catch (err) {
-      setError(
-        err.response?.data ||
-          "Preuzimanje informacija o korisniku nije uspjelo."
-      );
+      const errorMessage =
+        err.response?.data?.detail ||
+        "Preuzimanje informacija o korisniku nije uspjelo.";
+      setError(errorMessage);
     }
   };
 
@@ -25,9 +25,8 @@ const Profile = () => {
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Zdravo, {user?.first_name}</h2>
-      {error ? (
-        <p className="text-red-500">{error}</p>
-      ) : user ? (
+      {error && <p className="text-red-500">{error}</p>}
+      {user ? (
         <div>
           <p>
             <strong>Ime:</strong> {user.first_name}
@@ -44,7 +43,7 @@ const Profile = () => {
           <CarListing title={`Oglasi korisnika ${user.first_name}`} />
         </div>
       ) : (
-        <p>Preuzimanje informacija o korisniku...</p>
+        <div className="h-screen" />
       )}
     </div>
   );

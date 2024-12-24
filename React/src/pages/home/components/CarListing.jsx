@@ -38,7 +38,7 @@ const CarListing = ({ title }) => {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {carData.map((car) => (
-          <CarCard key={car.id} car={car} />
+          <CarCard key={car.id} car={car} isLoading={isLoading} />
         ))}
       </div>
     </section>

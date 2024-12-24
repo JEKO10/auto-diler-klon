@@ -10,7 +10,7 @@ const CarCard = ({ car }) => {
     <div className="border rounded-md p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
       <img
         src={imageUrl}
-        alt={car.title || "Vehicle"}
+        alt={car.title || "Vozilo"}
         className="w-full h-48 object-cover rounded-md"
       />
       <div className="mt-3">
