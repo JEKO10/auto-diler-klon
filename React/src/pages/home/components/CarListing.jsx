@@ -1,61 +1,36 @@
 import { Link } from "react-router-dom";
 import CarCard from "./CarCard";
+import { useEffect, useState } from "react";
+import { getAllCars } from "../../../services/carService";
 
-const carData = [
-  {
-    id: 1,
-    name: "Koenigsegg",
-    category: "Sedan",
-    fuel: "Diesel",
-    transmission: "Manual",
-    seats: 2,
-    price: 96.0,
-    oldPrice: null,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    id: 2,
-    name: "Nissan GT – R",
-    category: "Sedan",
-    fuel: "Electric",
-    transmission: "Manual",
-    seats: 2,
-    price: 96.0,
-    oldPrice: 100.0,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    id: 3,
-    name: "Rolls-Royce",
-    category: "Sedan",
-    fuel: "Petrol",
-    transmission: "Automatic",
-    seats: 4,
-    price: 96.0,
-    oldPrice: null,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    id: 4,
-    name: "CR – V",
-    category: "SUV",
-    fuel: "Electric",
-    transmission: "Manual",
-    seats: 4,
-    price: 96.0,
-    oldPrice: null,
-    image: "https://via.placeholder.com/150",
-  },
-];
+const CarListing = ({ title }) => {
+  const [carData, setCarData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-const CarListing = ({ isHome }) => {
+  const fetchCarData = async () => {
+    setIsLoading(true);
+    try {
+      const response = await getAllCars();
+      setCarData(response.data);
+
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCarData();
+  }, []);
+
+  if (isLoading) {
+    return <div className="loading" />;
+  }
   return (
     <section className="my-10 p-8 text-text">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold">
-          {isHome ? "Najnoviji automobili" : "Svi oglasi"}
-        </h2>
-        {isHome && (
+        <h2 className="text-2xl font-bold">{title}</h2>
+        {title === "Najnoviji oglasi" && (
           <Link to="/all" className="text-red-500 font-medium hover:underline">
             Vidi sve →
           </Link>

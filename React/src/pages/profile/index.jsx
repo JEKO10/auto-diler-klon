@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getUserProfile } from "../../services/authService";
+import CarListing from "../home/components/CarListing";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -23,11 +24,11 @@ const Profile = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Profile</h2>
+      <h2 className="text-2xl font-bold mb-4">Zdravo, {user?.first_name}</h2>
       {error ? (
         <p className="text-red-500">{error}</p>
       ) : user ? (
-        <div className="space-y-2">
+        <div>
           <p>
             <strong>Ime:</strong> {user.first_name}
           </p>
@@ -40,6 +41,7 @@ const Profile = () => {
           <p>
             <strong>Broj telefona:</strong> {user.phone_number}
           </p>
+          <CarListing title={`Oglasi korisnika ${user.first_name}`} />
         </div>
       ) : (
         <p>Preuzimanje informacija o korisniku...</p>

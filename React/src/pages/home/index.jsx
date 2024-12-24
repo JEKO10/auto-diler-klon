@@ -11,7 +11,7 @@ const Home = () => {
       <Navbar />
       <HeroSection />
       <FilterForm isHome={true} />
-      <CarListing isHome={true} />
+      <CarListing title={"Najnoviji oglasi"} />
       <PlatformNumbers />
       <AutoShop />
     </div>

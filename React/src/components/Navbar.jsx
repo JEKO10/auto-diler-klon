@@ -64,7 +64,9 @@ const Navbar = () => {
         </svg>
       </Link>
       <ul className="gap-6 items-center hidden md:flex [&>li]:lg:text-text [&>li]:lg:text-lg [&>li]:px-5 [&>li]:xl:px-10 [&>li]:cursor-pointer">
-        <li>Place</li>
+        <li>
+          <Link to="/profile">Profil</Link>
+        </li>
         <li>
           <Link to="/all">Ponuda vozila</Link>
         </li>

@@ -5,7 +5,7 @@ const AllVehicles = () => {
   return (
     <section>
       <FilterForm isHome={false} />
-      <CarListing isHome={false} />
+      <CarListing title={"Svi oglasi"} />
     </section>
   );
 };
