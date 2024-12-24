@@ -2,9 +2,8 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const CarCard = ({ car }) => {
-  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const imageUrl = car.images.length
-    ? `${BASE_URL}${car.images[0].image_url}`
+    ? `${import.meta.env.VITE_BASE_URL}${car.images[0].image_url}`
     : "/placeholder.jpg";
 
   return (

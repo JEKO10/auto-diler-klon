@@ -1,12 +1,11 @@
 import axios from "axios";
 
 const authApi = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
+  baseURL: "http://13.48.136.19/",
   timeout: 3000,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
-    "ngrok-skip-browser-warning": "69420",
   },
 });
 
