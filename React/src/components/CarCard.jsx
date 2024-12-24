@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const CarCard = ({ car }) => {
-  const BASE_URL = "https://074a-79-140-150-241.ngrok-free.app";
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const imageUrl = car.images.length
     ? `${BASE_URL}${car.images[0].image_url}`
     : "/placeholder.jpg";
@@ -31,9 +32,12 @@ const CarCard = ({ car }) => {
         <div>
           <p className="text-xl font-bold">€{car.price}</p>
         </div>
-        <button className="bg-red-500 text-white px-6 py-2 rounded-md">
+        <Link
+          to={`posts/${car.id}`}
+          className="bg-red-500 text-white px-6 py-2 rounded-md"
+        >
           Kupi
-        </button>
+        </Link>
       </div>
     </div>
   );
@@ -41,6 +45,7 @@ const CarCard = ({ car }) => {
 
 CarCard.propTypes = {
   car: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     title: PropTypes.string,
     brand: PropTypes.string.isRequired,
     model: PropTypes.string.isRequired,

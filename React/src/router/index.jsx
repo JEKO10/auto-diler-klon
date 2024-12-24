@@ -9,6 +9,7 @@ import { PublicRoute } from "./routes/public";
 import Create from "../pages/create";
 import { Layout } from "../layouts";
 import AllVehicles from "../pages/allVehicles";
+import SingleCar from "../pages/singleCar";
 
 export const Router = () => {
   const router = createBrowserRouter([
@@ -31,6 +32,10 @@ export const Router = () => {
         {
           path: "all",
           element: <AllVehicles />,
+        },
+        {
+          path: "posts/:id",
+          element: <SingleCar />,
         },
       ],
     },

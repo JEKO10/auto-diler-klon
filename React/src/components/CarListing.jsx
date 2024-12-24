@@ -1,21 +1,28 @@
 import { Link } from "react-router-dom";
 import CarCard from "./CarCard";
 import { useEffect, useState } from "react";
-import { getAllCars } from "../../../services/carService";
+import { getAllCars } from "../services/carService";
 
 const CarListing = ({ title }) => {
   const [carData, setCarData] = useState([]);
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchCarData = async () => {
     setIsLoading(true);
+    setError("");
+
     try {
       const response = await getAllCars();
       setCarData(response.data);
 
       setIsLoading(false);
-    } catch (error) {
-      console.error("Error: ", error);
+    } catch (err) {
+      const errorMessage =
+        err.response?.data?.detail || "Greška pri učitavanju vozila.";
+      setError(errorMessage);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -36,6 +43,7 @@ const CarListing = ({ title }) => {
           </Link>
         )}
       </div>
+      {error && <p className="text-red-500">{error}</p>}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {carData.map((car) => (
           <CarCard key={car.id} car={car} isLoading={isLoading} />

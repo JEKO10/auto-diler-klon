@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { getUserProfile } from "../../services/authService";
-import CarListing from "../home/components/CarListing";
+import CarListing from "../../components/CarListing";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
 
   const getUserData = async () => {
     try {
