@@ -26,7 +26,7 @@ const CarListing = ({ title }) => {
   }, []);
 
   return (
-    <section className="my-10 p-8 text-text">
+    <section className="my-10 md:p-8 text-text">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">{title}</h2>
         {title === "Najnoviji oglasi" && (

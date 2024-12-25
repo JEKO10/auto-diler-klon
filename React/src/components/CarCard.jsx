@@ -1,10 +1,15 @@
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CarCard = ({ car }) => {
+  const navigate = useNavigate();
   const imageUrl = car.images.length
     ? `${import.meta.env.VITE_BASE_URL}${car.images[0].image_url}`
     : "/placeholder.jpg";
+
+  const handleClick = () => {
+    navigate(`/posts/${car.id}`);
+  };
 
   return (
     <div className="border rounded-md p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
@@ -31,12 +36,12 @@ const CarCard = ({ car }) => {
         <div>
           <p className="text-xl font-bold">€{car.price}</p>
         </div>
-        <Link
-          to={`posts/${car.id}`}
+        <button
+          onClick={handleClick}
           className="bg-red-500 text-white px-6 py-2 rounded-md"
         >
           Kupi
-        </Link>
+        </button>
       </div>
     </div>
   );
