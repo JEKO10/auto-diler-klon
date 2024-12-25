@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getUserPosts, getUserProfile } from "../../services/authService";
 import CarListing from "../../components/CarListing";
+import UpdateUserForm from "./components/UpdateUserForm";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -49,6 +50,16 @@ const Profile = () => {
         </div>
       ) : (
         <div className="h-screen" />
+      )}
+      {user && (
+        <UpdateUserForm
+          userId={user.id}
+          initialData={{
+            first_name: user.first_name,
+            last_name: user.last_name,
+            phone_number: user.phone_number,
+          }}
+        />
       )}
     </div>
   );

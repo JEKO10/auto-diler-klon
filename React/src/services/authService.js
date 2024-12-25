@@ -10,3 +10,7 @@ export const getUserProfile = () => apiRequest("get", "/me");
 
 export const getUserPosts = (user_id) =>
   apiRequest("get", `/me/get_user_posts/${user_id}`);
+
+export const updateUser = (userId, data) => {
+  return apiRequest("put", `/me/update_user/${userId}`, data);
+};
