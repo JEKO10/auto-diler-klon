@@ -9,6 +9,8 @@ export const getCarById = (id) => {
 };
 
 export const createCar = (formData) => {
+  console.log("formData u createCar: ", formData);
+
   return apiRequest(
     "post",
     "/posts/create_post",

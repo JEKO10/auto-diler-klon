@@ -70,7 +70,9 @@ const Navbar = () => {
         <li>
           <Link to="/all">Ponuda vozila</Link>
         </li>
-        <li>Prodajem</li>
+        <li>
+          <Link to="/create">Prodajem</Link>
+        </li>
         <li>Usluge</li>
       </ul>
       {!isAuthenticated ? (
@@ -110,9 +112,15 @@ const Navbar = () => {
       {isNavOpen && (
         <div className="h-full w-full absolute top-0 right-0 bg-black/90 text-white shadow-lg flex flex-col px-5 py-16 md:hidden z-20">
           <ul className="flex flex-col justify-center items-center gap-5 [&>li]:text-lg [&>li]:cursor-pointer">
-            <li>Početna</li>
-            <li>Ponuda vozila</li>
-            <li>Prodajem</li>
+            <li>
+              <Link to="/">Početna</Link>
+            </li>
+            <li>
+              <Link to="/all">Ponuda vozila</Link>
+            </li>
+            <li>
+              <Link to="/create">Prodajem</Link>
+            </li>
             <li>Usluge</li>
           </ul>
           {!isAuthenticated ? (

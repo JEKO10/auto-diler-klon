@@ -37,17 +37,20 @@ const UpdateUserForm = ({ userId, initialData }) => {
   };
 
   return (
-    <section className="max-w-lg mx-auto my-14 p-6 bg-white rounded-lg shadow">
+    <section className="bg-body text-text border border-primary max-w-lg mx-auto my-14 p-6 rounded-lg shadow">
       <h2 className="text-2xl font-bold mb-4">Ažurirajte Vaše podatke</h2>
       {successMessage && (
-        <p className="bg-green-100 text-green-800 p-3 rounded">
+        <p className="bg-green-100 text-green-800 my-3 p-3 rounded">
           {successMessage}
         </p>
       )}
       {errorMessage && (
         <p className="bg-red-100 text-red-800 p-3 rounded">{errorMessage}</p>
       )}
-      <form onSubmit={handleSubmit} className="grid gap-4">
+      <form
+        onSubmit={handleSubmit}
+        className="grid gap-4 [&_input]:bg-body [&_input]:text-text"
+      >
         <div>
           <label className="block text-sm font-medium mb-1">Ime</label>
           <input

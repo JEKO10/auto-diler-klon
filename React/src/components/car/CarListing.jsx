@@ -1,29 +1,10 @@
 import { Link } from "react-router-dom";
 import CarCard from "./CarCard";
 import SkeletonCard from "./SkeletonCard";
-import { useEffect, useState } from "react";
-import { getAllCars } from "../../services/carService";
+import { useCarContext } from "../../contexts/CarContext";
 
-const CarListing = ({ title }) => {
-  const [carData, setCarData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const fetchCarData = async () => {
-    setIsLoading(true);
-
-    try {
-      const response = await getAllCars();
-      setCarData(response.data);
-    } catch (err) {
-      console.log("Error: ", err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchCarData();
-  }, []);
+const CarListing = ({ carData, title }) => {
+  const { isLoading } = useCarContext();
 
   return (
     <section className="my-10 md:p-8 text-text">
@@ -35,8 +16,8 @@ const CarListing = ({ title }) => {
           </Link>
         )}
       </div>
-      {carData.length === 0 && (
-        <p className="text-red-500">Greška pri učitavanju vozila.</p>
+      {!isLoading && carData.length === 0 && (
+        <p className="text-red-500 h-60">Nema vozila.</p>
       )}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {isLoading

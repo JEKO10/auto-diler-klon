@@ -6,12 +6,9 @@ const SingleCar = () => {
   const [carData, setCarData] = useState([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedImage, setSelectedImage] = useState(null);
   const { id } = useParams();
   const BASE_URL = import.meta.env.VITE_BASE_URL;
-  const mainImage =
-    carData.images && carData.images.length > 0
-      ? `${BASE_URL}${carData.images[0].image_url}`
-      : "/placeholder.jpg";
 
   const fetchCarData = async () => {
     setIsLoading(true);
@@ -20,6 +17,9 @@ const SingleCar = () => {
     try {
       const response = await getCarById(id);
       setCarData(response.data);
+      if (response.data.images && response.data.images.length > 0) {
+        setSelectedImage(response.data.images[0].image_url);
+      }
       setIsLoading(false);
     } catch (err) {
       const errorMessage =
@@ -29,6 +29,10 @@ const SingleCar = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleThumbnailClick = (image) => {
+    setSelectedImage(image);
   };
 
   useEffect(() => {
@@ -46,19 +50,19 @@ const SingleCar = () => {
     );
   }
   return (
-    <div className="max-w-7xl mx-auto p-6 mb-14">
+    <div className="text-text max-w-7xl mx-auto p-6 mb-14">
       {error && <p className="text-center text-red-500 h-screen">{error}</p>}
       <h1 className="text-3xl font-bold mb-4">
-        {carData.brand} {carData.model} {carData.year}
+        {carData.brand} {carData.model}
       </h1>
-      <p className="text-2xl font-semibold text-gray-600 mb-6">
+      <p className="text-primary text-2xl font-semibold mb-6">
         €{carData.price}
       </p>
       <div className="relative">
         <img
-          src={mainImage}
+          src={`${BASE_URL}${selectedImage}`}
           alt={`${carData.brand} ${carData.model}`}
-          className="w-full h-96 object-cover rounded-md"
+          className="w-full h-[500px] object-cover rounded-md"
         />
         <div className="flex mt-4 space-x-4 overflow-x-auto">
           {carData.images.map((img, index) => (
@@ -66,14 +70,17 @@ const SingleCar = () => {
               key={index}
               src={`${BASE_URL}${img.image_url}`}
               alt={`Car image ${index + 1}`}
-              className="w-32 h-24 object-cover rounded-md"
+              className={`w-32 h-24 object-cover rounded-md cursor-pointer ${
+                selectedImage === img.image_url ? "border-4 border-red-500" : ""
+              }`}
+              onClick={() => handleThumbnailClick(img.image_url)}
             />
           ))}
         </div>
       </div>
       <div className="mt-6">
         <h2 className="text-2xl font-bold">Opis</h2>
-        <p className="text-gray-700 mt-2">{carData.description}</p>
+        <p className="text-primary mt-2">{carData.description}</p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
         <div className="border p-4 rounded-md">

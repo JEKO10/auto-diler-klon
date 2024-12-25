@@ -7,15 +7,9 @@ const FormInput = ({
   value,
   onChange,
   options,
-  multiple = false,
   disabled = false,
 }) => {
-  const handleSelectChange = (e) => {
-    const selectedValues = Array.from(e.target.selectedOptions, (option) =>
-      parseInt(option.value)
-    );
-    onChange({ target: { name, value: selectedValues } });
-  };
+  console.log("options ", name, options);
 
   return (
     <div className="flex flex-col gap-1">
@@ -24,14 +18,11 @@ const FormInput = ({
         <select
           name={name}
           value={value}
-          onChange={multiple ? handleSelectChange : onChange}
+          onChange={onChange}
           className="border rounded-md p-2 w-full"
-          multiple={multiple}
           disabled={disabled}
         >
-          <option value="" disabled={!multiple}>
-            {multiple ? "Select Equipments" : `Select ${label}`}
-          </option>
+          <option value="">{`Select ${label}`}</option>
           {options.map((option) => (
             <option key={option.id} value={option.id}>
               {option.name}
