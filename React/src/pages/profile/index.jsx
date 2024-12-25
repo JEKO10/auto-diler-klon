@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getUserPosts, getUserProfile } from "../../services/authService";
-import CarListing from "../../components/CarListing";
+import CarListing from "../../components/car/CarListing";
 import UpdateUserForm from "./components/UpdateUserForm";
 
 const Profile = () => {

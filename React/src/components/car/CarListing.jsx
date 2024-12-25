@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import CarCard from "./CarCard";
 import SkeletonCard from "./SkeletonCard";
 import { useEffect, useState } from "react";
-import { getAllCars } from "../services/carService";
+import { getAllCars } from "../../services/carService";
 
 const CarListing = ({ title }) => {
   const [carData, setCarData] = useState([]);

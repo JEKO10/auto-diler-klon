@@ -1,5 +1,5 @@
-import FilterForm from "../../components/FilterForm";
-import CarListing from "../../components/CarListing";
+import FilterForm from "../../components/filter/FilterForm";
+import CarListing from "../../components/car/CarListing";
 
 const AllVehicles = () => {
   return (
