@@ -7,9 +7,10 @@ const SingleCar = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const mainImage =
     carData.images && carData.images.length > 0
-      ? `${import.meta.env.VITE_BASE_URL}${carData.images[0].image_url}`
+      ? `${BASE_URL}${carData.images[0].image_url}`
       : "/placeholder.jpg";
 
   const fetchCarData = async () => {
@@ -45,7 +46,7 @@ const SingleCar = () => {
     );
   }
   return (
-    <div className="max-w-6xl mx-auto p-6">
+    <div className="max-w-7xl mx-auto p-6 mb-14">
       {error && <p className="text-center text-red-500 h-screen">{error}</p>}
       <h1 className="text-3xl font-bold mb-4">
         {carData.brand} {carData.model} {carData.year}
@@ -53,7 +54,6 @@ const SingleCar = () => {
       <p className="text-2xl font-semibold text-gray-600 mb-6">
         €{carData.price}
       </p>
-
       <div className="relative">
         <img
           src={mainImage}
@@ -71,12 +71,10 @@ const SingleCar = () => {
           ))}
         </div>
       </div>
-
       <div className="mt-6">
         <h2 className="text-2xl font-bold">Opis</h2>
         <p className="text-gray-700 mt-2">{carData.description}</p>
       </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
         <div className="border p-4 rounded-md">
           <h3 className="text-xl font-semibold mb-4">Opšte informacije</h3>

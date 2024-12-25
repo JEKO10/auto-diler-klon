@@ -1,20 +1,9 @@
 import FilterField from "./FilterField";
-import {
-  getVehicleTypes,
-  getBodyTypes,
-  getBrands,
-  getModels,
-  getTransmissions,
-  getFuels,
-  getDrivetrains,
-  getEmissionStandards,
-  getEquipmentsCategory,
-  getEquipments,
-  getLocations,
-} from "../services/vehicleService";
-import { useEffect, useState } from "react";
+import useVehicleOptions from "../utils/useVehicleOptions";
+import { useState } from "react";
 
 const Form = () => {
+  const { vehicleOptions } = useVehicleOptions();
   const [filters, setFilters] = useState({
     vehicleType: "",
     brand: "",
@@ -27,22 +16,8 @@ const Form = () => {
     drivetrain: "",
     transmission: "",
     equipmentCategory: "",
-    // range
     price: "",
     year: "",
-  });
-  const [vehicleOptions, setVehicleOptions] = useState({
-    vehicleTypes: [],
-    brands: [],
-    models: [],
-    fuels: [],
-    bodyTypes: [],
-    emissions: [],
-    drivetrains: [],
-    transmissions: [],
-    locations: [],
-    equipmentCategories: [],
-    equipments: [],
   });
   const [filteredModels, setFilteredModels] = useState([]);
   const [filteredBodyTypes, setFilteredBodyTypes] = useState([]);
@@ -78,56 +53,6 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [
-          brands,
-          models,
-          fuels,
-          bodyTypes,
-          emissions,
-          drivetrains,
-          transmissions,
-          vehicleTypes,
-          locations,
-          equipmentCategories,
-          equipments,
-        ] = await Promise.all([
-          getBrands(),
-          getModels(),
-          getFuels(),
-          getBodyTypes(),
-          getEmissionStandards(),
-          getDrivetrains(),
-          getTransmissions(),
-          getVehicleTypes(),
-          getLocations(),
-          getEquipmentsCategory(),
-          getEquipments(),
-        ]);
-
-        setVehicleOptions({
-          brands: brands.data,
-          models: models.data,
-          fuels: fuels.data,
-          bodyTypes: bodyTypes.data,
-          emissions: emissions.data,
-          drivetrains: drivetrains.data,
-          transmissions: transmissions.data,
-          vehicleTypes: vehicleTypes.data,
-          locations: locations.data,
-          equipmentCategories: equipmentCategories.data,
-          equipments: equipments.data,
-        });
-      } catch (error) {
-        console.error("Error: ", error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const uniqueCountries = Array.from(
     new Map(

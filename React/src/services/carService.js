@@ -7,3 +7,12 @@ export const getAllCars = () => {
 export const getCarById = (id) => {
   return apiRequest("get", `/posts/get_post/${id}`);
 };
+
+export const createCar = (formData) => {
+  return apiRequest(
+    "post",
+    "/posts/create_post",
+    formData,
+    "multipart/form-data"
+  );
+};

@@ -1,11 +1,12 @@
 import axios from "axios";
 
 const authApi = axios.create({
-  baseURL: "http://13.48.136.19/",
+  baseURL: "https://074a-79-140-150-241.ngrok-free.app/",
   timeout: 3000,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
+    "ngrok-skip-browser-warning": "69420",
   },
 });
 
