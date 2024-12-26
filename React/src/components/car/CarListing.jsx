@@ -1,11 +1,8 @@
 import { Link } from "react-router-dom";
 import CarCard from "./CarCard";
 import SkeletonCard from "./SkeletonCard";
-import { useCarContext } from "../../contexts/CarContext";
 
-const CarListing = ({ carData, title }) => {
-  const { isLoading } = useCarContext();
-
+const CarListing = ({ carData, title, isLoading }) => {
   return (
     <section className="my-10 md:p-8 text-text">
       <div className="flex justify-between items-center mb-6">

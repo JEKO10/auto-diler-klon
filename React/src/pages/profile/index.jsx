@@ -54,11 +54,8 @@ const Profile = () => {
           <p>
             <strong>Broj telefona:</strong> {user.phone_number}
           </p>
-          {userPosts.length
-            ? userPosts.map(({ post }) => <p key={post.id}>{post.title}</p>)
-            : "Nema postova"}
           <CarListing
-            carData={userPosts}
+            carData={Array.isArray(userPosts) ? userPosts : []}
             title={`Oglasi korisnika ${user.first_name}`}
           />
         </div>

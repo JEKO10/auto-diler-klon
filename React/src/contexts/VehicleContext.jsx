@@ -1,18 +1,19 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { getAllCars } from "../services/carService";
 
-const carContext = createContext({});
+const vehicleContext = createContext({});
 
-const { Provider } = carContext;
+const { Provider } = vehicleContext;
 
-export const CarProvider = ({ children }) => {
+export const VehicleProvider = ({ children }) => {
   const [allCars, setAllCars] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const getCarsData = async () => {
+  const getCarData = async () => {
     setIsLoading(true);
     try {
       const response = await getAllCars();
+
       setAllCars(response.data);
       //   setFilteredCars(response.data);
     } catch (err) {
@@ -23,10 +24,12 @@ export const CarProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    getCarsData();
+    getCarData();
   }, []);
 
-  return <Provider value={{ allCars, isLoading }}>{children}</Provider>;
+  return (
+    <Provider value={{ allCars, isLoading, getCarData }}>{children}</Provider>
+  );
 };
 
-export const useCarContext = () => useContext(carContext);
+export const useVehicleContext = () => useContext(vehicleContext);

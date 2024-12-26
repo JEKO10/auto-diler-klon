@@ -1,31 +1,25 @@
 import { useEffect, useState } from "react";
 import {
-  getVehicleTypes,
-  getBodyTypes,
-  getBrands,
-  getModels,
+  getBrandsWithModels,
+  getVehicleTypesWithBodies,
+  getEquipmentCategoryWithEquipments,
   getTransmissions,
   getFuels,
   getDrivetrains,
   getEmissionStandards,
-  getEquipmentsCategory,
-  getEquipments,
   getLocations,
 } from "../services/vehicleService";
 
 const useVehicleOptions = () => {
   const [vehicleOptions, setVehicleOptions] = useState({
-    vehicleTypes: [],
-    brands: [],
-    models: [],
+    vehicleTypesWithBodies: [],
+    brandsWithModels: [],
+    equipmentCategoriesWithEquipments: [],
     fuels: [],
-    bodyTypes: [],
     emissions: [],
     drivetrains: [],
     transmissions: [],
     locations: [],
-    equipmentCategories: [],
-    equipments: [],
   });
   const [loading, setLoading] = useState(true);
 
@@ -33,46 +27,38 @@ const useVehicleOptions = () => {
     const fetchData = async () => {
       try {
         const [
-          brands,
-          models,
+          brandsWithModels,
+          vehicleTypesWithBodies,
+          equipmentCategoriesWithEquipments,
           fuels,
-          bodyTypes,
           emissions,
           drivetrains,
           transmissions,
-          vehicleTypes,
           locations,
-          equipmentCategories,
-          equipments,
         ] = await Promise.all([
-          getBrands(),
-          getModels(),
+          getBrandsWithModels(),
+          getVehicleTypesWithBodies(),
+          getEquipmentCategoryWithEquipments(),
           getFuels(),
-          getBodyTypes(),
           getEmissionStandards(),
           getDrivetrains(),
           getTransmissions(),
-          getVehicleTypes(),
           getLocations(),
-          getEquipmentsCategory(),
-          getEquipments(),
         ]);
 
         setVehicleOptions({
-          brands: brands.data,
-          models: models.data,
+          brandsWithModels: brandsWithModels.data,
+          vehicleTypesWithBodies: vehicleTypesWithBodies.data,
+          equipmentCategoriesWithEquipments:
+            equipmentCategoriesWithEquipments.data,
           fuels: fuels.data,
-          bodyTypes: bodyTypes.data,
           emissions: emissions.data,
           drivetrains: drivetrains.data,
           transmissions: transmissions.data,
-          vehicleTypes: vehicleTypes.data,
           locations: locations.data,
-          equipmentCategories: equipmentCategories.data,
-          equipments: equipments.data,
         });
       } catch (error) {
-        console.error("Error fetching options:", error);
+        console.error("Error: ", error);
       } finally {
         setLoading(false);
       }

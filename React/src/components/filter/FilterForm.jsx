@@ -1,49 +1,41 @@
 import FilterField from "./FilterField";
 import useVehicleOptions from "../../utils/useVehicleOptions";
+import { useState } from "react";
 
-const FilterForm = ({
-  isHome,
-  filters,
-  setFilters,
-  filteredModels,
-  filteredBodyTypes,
-  filteredEquipments,
-  setFilteredModels,
-  setFilteredBodyTypes,
-  setFilteredEquipments,
-  onSubmitFilters,
-}) => {
+const FilterForm = ({ isHome, filters, setFilters, onSubmitFilters }) => {
   const { vehicleOptions } = useVehicleOptions();
+  const [filteredModels, setFilteredModels] = useState([]);
+  const [filteredBodyTypes, setFilteredBodyTypes] = useState([]);
+  const [filteredEquipments, setFilteredEquipments] = useState([]);
 
   const handleChange = (e) => {
-    const { name, value, type } = e.target;
-    setFilters({ ...filters, [name]: value });
-
-    setFilters({
-      ...filters,
-      [name]: type === "number" ? Number(value) || "" : value,
-    });
+    const { name, value } = e.target;
+    setFilters((prev) => ({ ...prev, [name]: value }));
 
     if (name === "brand") {
-      const modelsByBrand = vehicleOptions.models.filter(
-        (model) => model.brand_id === parseInt(value)
+      const selectedBrand = vehicleOptions.brandsWithModels.find(
+        (brand) => brand.id == value
       );
-      setFilteredModels(modelsByBrand);
+      setFilteredModels(selectedBrand ? selectedBrand.models : []);
       setFilters((prev) => ({ ...prev, model: "" }));
     }
 
     if (name === "vehicleType") {
-      const filteredTypes = vehicleOptions.bodyTypes.filter(
-        (type) => type.vehicle_type_id === parseInt(value)
+      const selectedVehicle = vehicleOptions.vehicleTypesWithBodies.find(
+        (body) => body.id == value
       );
-      setFilteredBodyTypes(filteredTypes);
+      setFilteredBodyTypes(selectedVehicle ? selectedVehicle.body_types : []);
+      setFilters((prev) => ({ ...prev, bodyType: "" }));
     }
 
     if (name === "equipmentCategory") {
-      const filteredEquipments = vehicleOptions.equipments.filter(
-        (equipment) => equipment.category_id === parseInt(value)
+      const selectedCategory =
+        vehicleOptions.equipmentCategoriesWithEquipments.find(
+          (category) => category.id == value
+        );
+      setFilteredEquipments(
+        selectedCategory ? selectedCategory.equipments : []
       );
-      setFilteredEquipments(filteredEquipments);
     }
   };
 
@@ -74,12 +66,12 @@ const FilterForm = ({
       </article>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col flex-wrap md:flex-row items-center gap-4 [&_input]:bg-body [&_input]:text-text"
+        className="flex flex-col flex-wrap md:flex-row items-center gap-4"
       >
         <FilterField
           name="vehicleType"
           placeholder="Vrsta vozila"
-          vehicleOptions={vehicleOptions.vehicleTypes}
+          vehicleOptions={vehicleOptions.vehicleTypesWithBodies}
           value={filters.vehicleType}
           handleChange={handleChange}
         />
@@ -94,7 +86,7 @@ const FilterForm = ({
         <FilterField
           name="brand"
           placeholder="Marka"
-          vehicleOptions={vehicleOptions.brands}
+          vehicleOptions={vehicleOptions.brandsWithModels}
           value={filters.brand}
           handleChange={handleChange}
         />
@@ -116,7 +108,7 @@ const FilterForm = ({
         <FilterField
           name="equipmentCategory"
           placeholder="Kategorija opreme"
-          vehicleOptions={vehicleOptions.equipmentCategories}
+          vehicleOptions={vehicleOptions.equipmentCategoriesWithEquipments}
           value={filters.equipmentCategory}
           handleChange={handleChange}
         />

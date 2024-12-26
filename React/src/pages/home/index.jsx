@@ -1,20 +1,23 @@
-import FilterForm from "../../components/filter/FilterForm";
 import HeroSection from "./components/HeroSection";
 import AutoShop from "./components/AutoShop";
 import PlatformNumbers from "./components/PlatformNumbers";
 import CarListing from "../../components/car/CarListing";
 import Navbar from "../../components/Navbar";
-import { useCarContext } from "../../contexts/CarContext";
+import { useVehicleContext } from "../../contexts/VehicleContext";
 
 const Home = () => {
-  const { allCars } = useCarContext();
+  const { allCars, isLoading } = useVehicleContext();
 
   return (
     <div className="home">
       <Navbar />
       <HeroSection />
       {/* <FilterForm isHome={true} /> */}
-      <CarListing carData={allCars} title={"Najnoviji oglasi"} />
+      <CarListing
+        carData={allCars}
+        isLoading={isLoading}
+        title={"Najnoviji oglasi"}
+      />
       <PlatformNumbers />
       <AutoShop />
     </div>

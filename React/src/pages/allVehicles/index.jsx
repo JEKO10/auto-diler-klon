@@ -1,9 +1,10 @@
 import FilterForm from "../../components/filter/FilterForm";
 import CarListing from "../../components/car/CarListing";
 import { useEffect, useState } from "react";
-import { getAllCars } from "../../services/carService";
+import { useVehicleContext } from "../../contexts/VehicleContext";
 
 const AllVehicles = () => {
+  const { allCars } = useVehicleContext();
   const [filters, setFilters] = useState({
     vehicleType: "",
     brand: "",
@@ -20,31 +21,10 @@ const AllVehicles = () => {
     fromYear: "",
     toYear: "",
   });
-  const [filteredModels, setFilteredModels] = useState([]);
-  const [filteredBodyTypes, setFilteredBodyTypes] = useState([]);
-  const [filteredEquipments, setFilteredEquipments] = useState([]);
-  const [carData, setCarData] = useState([]);
   const [filteredCars, setFilteredCars] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const fetchCarData = async () => {
-    try {
-      const response = await getAllCars();
-      setCarData(response.data);
-      setFilteredCars(response.data);
-    } catch (err) {
-      console.log("Error: ", err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchCarData();
-  }, []);
 
   const handleFilterSubmit = (appliedFilters) => {
-    const result = carData.filter((car) => {
+    const result = allCars.filter((car) => {
       return (
         (!appliedFilters.vehicleType ||
           car.vehicle_type_id == appliedFilters.vehicleType) &&
@@ -71,15 +51,13 @@ const AllVehicles = () => {
     setFilteredCars(result);
   };
 
+  useEffect(() => {
+    setFilteredCars(allCars);
+  }, [allCars]);
+
   return (
     <section>
       <FilterForm
-        filteredModels={filteredModels}
-        filteredBodyTypes={filteredBodyTypes}
-        filteredEquipments={filteredEquipments}
-        setFilteredModels={setFilteredModels}
-        setFilteredBodyTypes={setFilteredBodyTypes}
-        setFilteredEquipments={setFilteredEquipments}
         isHome={false}
         filters={filters}
         setFilters={setFilters}

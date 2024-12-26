@@ -4,16 +4,16 @@ import "./index.css";
 import App from "./App.jsx";
 import { ThemeProvider } from "./contexts/ThemeProvider.jsx";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
-import { CarProvider } from "./contexts/CarContext.jsx";
+import { VehicleProvider } from "./contexts/VehicleContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <CarProvider>
+    <VehicleProvider>
       <AuthProvider>
         <ThemeProvider>
           <App />
         </ThemeProvider>
       </AuthProvider>
-    </CarProvider>
+    </VehicleProvider>
   </StrictMode>
 );
