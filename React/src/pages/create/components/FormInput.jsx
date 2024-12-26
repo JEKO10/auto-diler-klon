@@ -9,8 +9,6 @@ const FormInput = ({
   options,
   disabled = false,
 }) => {
-  console.log("options ", name, options);
-
   return (
     <div className="flex flex-col gap-1">
       <label className="text-sm font-medium">{label}</label>

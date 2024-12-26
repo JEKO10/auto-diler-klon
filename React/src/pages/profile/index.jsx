@@ -16,7 +16,7 @@ const Profile = () => {
       setUser(response.data);
 
       const postsResponse = await getUserPosts(response.data.id);
-      setUserPosts(postsResponse);
+      setUserPosts(postsResponse.data);
       setIsLoading(false);
     } catch (err) {
       const errorMessage =

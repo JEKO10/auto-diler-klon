@@ -22,6 +22,8 @@ const useVehicleOptions = () => {
     locations: [],
   });
   const [loading, setLoading] = useState(true);
+  const [filteredModels, setFilteredModels] = useState([]);
+  const [filteredBodyTypes, setFilteredBodyTypes] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,7 +69,51 @@ const useVehicleOptions = () => {
     fetchData();
   }, []);
 
-  return { vehicleOptions, loading };
+  const allEquipments =
+    vehicleOptions.equipmentCategoriesWithEquipments?.flatMap(
+      (category) => category.equipments
+    ) || [];
+
+  const uniqueCountries = Array.from(
+    new Map(
+      vehicleOptions.locations.map((item) => [
+        item.country,
+        { id: item.id, name: item.country },
+      ])
+    ).values()
+  );
+
+  const uniqueCities = Array.from(
+    new Map(
+      vehicleOptions.locations.map((item) => [
+        item.city,
+        { id: item.id, name: item.city },
+      ])
+    ).values()
+  );
+
+  const filterModelsAndBodies = (brandId, vehicleTypeId) => {
+    const selectedBrand = vehicleOptions.brandsWithModels.find(
+      (brand) => brand.id == brandId
+    );
+    setFilteredModels(selectedBrand ? selectedBrand.models : []);
+
+    const selectedVehicle = vehicleOptions.vehicleTypesWithBodies.find(
+      (type) => type.id == vehicleTypeId
+    );
+    setFilteredBodyTypes(selectedVehicle ? selectedVehicle.body_types : []);
+  };
+
+  return {
+    vehicleOptions,
+    loading,
+    allEquipments,
+    filterModelsAndBodies,
+    filteredModels,
+    filteredBodyTypes,
+    uniqueCountries,
+    uniqueCities,
+  };
 };
 
 export default useVehicleOptions;

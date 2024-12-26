@@ -64,16 +64,16 @@ const Navbar = () => {
         </svg>
       </Link>
       <ul className="gap-6 items-center hidden md:flex [&>li]:lg:text-text [&>li]:lg:text-lg [&>li]:px-5 [&>li]:xl:px-10 [&>li]:cursor-pointer">
-        <li>
+        <li className="hover:text-red-500 transition">
           <Link to="/profile">Profil</Link>
         </li>
-        <li>
+        <li className="hover:text-red-500 transition">
           <Link to="/all">Ponuda vozila</Link>
         </li>
-        <li>
+        <li className="hover:text-red-500 transition">
           <Link to="/create">Prodajem</Link>
         </li>
-        <li>Usluge</li>
+        <li className="hover:text-red-500 transition">Usluge</li>
       </ul>
       {!isAuthenticated ? (
         <div className="gap-2 hidden sm:flex md:flex-col lg:flex-row">

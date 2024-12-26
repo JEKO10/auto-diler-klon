@@ -79,6 +79,8 @@ const SingleCar = () => {
         </div>
       </div>
       <div className="mt-6">
+        <h2 className="text-2xl font-bold">Naslov</h2>
+        <p className="text-primary mt-2">{carData.title}</p>
         <h2 className="text-2xl font-bold">Opis</h2>
         <p className="text-primary mt-2">{carData.description}</p>
       </div>

@@ -8,13 +8,19 @@ export const getCarById = (id) => {
   return apiRequest("get", `/posts/get_post/${id}`);
 };
 
-export const createCar = (formData) => {
-  console.log("formData u createCar: ", formData);
+export const createCar = async (queryParams, formData) => {
+  try {
+    const response = await apiRequest(
+      "post",
+      `/posts/create_post?${queryParams}`,
+      formData,
+      "multipart/form-data"
+    );
 
-  return apiRequest(
-    "post",
-    "/posts/create_post",
-    formData,
-    "multipart/form-data"
-  );
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error("Error creating car:", error);
+    throw error;
+  }
 };

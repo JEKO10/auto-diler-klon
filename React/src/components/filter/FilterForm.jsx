@@ -1,40 +1,24 @@
 import FilterField from "./FilterField";
 import useVehicleOptions from "../../utils/useVehicleOptions";
-import { useState } from "react";
 
 const FilterForm = ({ isHome, filters, setFilters, onSubmitFilters }) => {
-  const { vehicleOptions } = useVehicleOptions();
-  const [filteredModels, setFilteredModels] = useState([]);
-  const [filteredBodyTypes, setFilteredBodyTypes] = useState([]);
-  const [filteredEquipments, setFilteredEquipments] = useState([]);
+  const {
+    vehicleOptions,
+    filteredModels,
+    filteredBodyTypes,
+    filterModelsAndBodies,
+    uniqueCountries,
+    allEquipments,
+  } = useVehicleOptions();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFilters((prev) => ({ ...prev, [name]: value }));
 
-    if (name === "brand") {
-      const selectedBrand = vehicleOptions.brandsWithModels.find(
-        (brand) => brand.id == value
-      );
-      setFilteredModels(selectedBrand ? selectedBrand.models : []);
-      setFilters((prev) => ({ ...prev, model: "" }));
-    }
-
-    if (name === "vehicleType") {
-      const selectedVehicle = vehicleOptions.vehicleTypesWithBodies.find(
-        (body) => body.id == value
-      );
-      setFilteredBodyTypes(selectedVehicle ? selectedVehicle.body_types : []);
-      setFilters((prev) => ({ ...prev, bodyType: "" }));
-    }
-
-    if (name === "equipmentCategory") {
-      const selectedCategory =
-        vehicleOptions.equipmentCategoriesWithEquipments.find(
-          (category) => category.id == value
-        );
-      setFilteredEquipments(
-        selectedCategory ? selectedCategory.equipments : []
+    if (name === "brand" || name === "vehicleType") {
+      filterModelsAndBodies(
+        name === "brand_id" ? value : filters.brand,
+        name === "vehicle_type_id" ? value : filters.vehicleType
       );
     }
   };
@@ -43,15 +27,6 @@ const FilterForm = ({ isHome, filters, setFilters, onSubmitFilters }) => {
     e.preventDefault();
     onSubmitFilters(filters);
   };
-
-  const uniqueCountries = Array.from(
-    new Map(
-      vehicleOptions.locations.map((item) => [
-        item.country,
-        { id: item.id, name: item.country },
-      ])
-    ).values()
-  );
 
   return (
     <section
@@ -105,20 +80,19 @@ const FilterForm = ({ isHome, filters, setFilters, onSubmitFilters }) => {
           value={filters.fuel}
           handleChange={handleChange}
         />
-        <FilterField
+        {/* <FilterField
           name="equipmentCategory"
           placeholder="Kategorija opreme"
           vehicleOptions={vehicleOptions.equipmentCategoriesWithEquipments}
           value={filters.equipmentCategory}
           handleChange={handleChange}
-        />
+        /> */}
         <FilterField
           name="equipment"
           placeholder="Oprema"
-          vehicleOptions={filteredEquipments}
+          vehicleOptions={allEquipments}
           value={filters.equipment}
           handleChange={handleChange}
-          disabled={!filters.equipmentCategory}
         />
         <FilterField
           name="transmission"
