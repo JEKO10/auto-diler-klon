@@ -55,6 +55,7 @@ const Profile = () => {
             <strong>Broj telefona:</strong> {user.phone_number}
           </p>
           <CarListing
+            isLoading={isLoading}
             carData={Array.isArray(userPosts) ? userPosts : []}
             title={`Oglasi korisnika ${user.first_name}`}
           />

@@ -4,7 +4,7 @@ import SkeletonCard from "./SkeletonCard";
 
 const CarListing = ({ carData, title, isLoading }) => {
   return (
-    <section className="my-10 md:p-8 text-text">
+    <section className="my-10 md:p-8 px-5 text-text">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">{title}</h2>
         {title === "Najnoviji oglasi" && (

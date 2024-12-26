@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useVehicleContext } from "../../contexts/VehicleContext";
 
 const AllVehicles = () => {
-  const { allCars } = useVehicleContext();
+  const { allCars, isLoading } = useVehicleContext();
   const [filters, setFilters] = useState({
     vehicleType: "",
     brand: "",
@@ -63,7 +63,11 @@ const AllVehicles = () => {
         setFilters={setFilters}
         onSubmitFilters={handleFilterSubmit}
       />
-      <CarListing carData={filteredCars} title={"Svi oglasi"} />
+      <CarListing
+        carData={filteredCars}
+        isLoading={isLoading}
+        title={"Svi oglasi"}
+      />
     </section>
   );
 };
