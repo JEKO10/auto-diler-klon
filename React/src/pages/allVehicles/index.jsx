@@ -2,6 +2,7 @@ import FilterForm from "../../components/filter/FilterForm";
 import CarListing from "../../components/car/CarListing";
 import { useEffect, useState } from "react";
 import { useVehicleContext } from "../../contexts/VehicleContext";
+import { useLocation } from "react-router-dom";
 
 const AllVehicles = () => {
   const { allCars, isLoading } = useVehicleContext();
@@ -22,6 +23,7 @@ const AllVehicles = () => {
     toYear: "",
   });
   const [filteredCars, setFilteredCars] = useState([]);
+  const location = useLocation();
 
   const handleFilterSubmit = (appliedFilters) => {
     const result = allCars.filter((car) => {
@@ -54,6 +56,18 @@ const AllVehicles = () => {
   useEffect(() => {
     setFilteredCars(allCars);
   }, [allCars]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const updatedFilters = { ...filters };
+
+    for (let [key, value] of params.entries()) {
+      updatedFilters[key] = value;
+    }
+
+    setFilters(updatedFilters);
+    handleFilterSubmit(updatedFilters);
+  }, [location]);
 
   return (
     <section>

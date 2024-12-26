@@ -1,5 +1,6 @@
 import FilterField from "./FilterField";
 import useVehicleOptions from "../../utils/useVehicleOptions";
+import { useNavigate } from "react-router-dom";
 
 const FilterForm = ({ isHome, filters, setFilters, onSubmitFilters }) => {
   const {
@@ -10,6 +11,7 @@ const FilterForm = ({ isHome, filters, setFilters, onSubmitFilters }) => {
     uniqueCountries,
     allEquipments,
   } = useVehicleOptions();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,7 +27,12 @@ const FilterForm = ({ isHome, filters, setFilters, onSubmitFilters }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmitFilters(filters);
+    if (isHome) {
+      const queryString = new URLSearchParams(filters).toString();
+      navigate(`/all?${queryString}`);
+    } else {
+      onSubmitFilters(filters);
+    }
   };
 
   return (
@@ -43,85 +50,89 @@ const FilterForm = ({ isHome, filters, setFilters, onSubmitFilters }) => {
         onSubmit={handleSubmit}
         className="flex flex-col flex-wrap md:flex-row items-center gap-4"
       >
-        <FilterField
-          name="vehicleType"
-          placeholder="Vrsta vozila"
-          vehicleOptions={vehicleOptions.vehicleTypesWithBodies}
-          value={filters.vehicleType}
-          handleChange={handleChange}
-        />
-        <FilterField
-          name="bodyType"
-          placeholder="Karoserija"
-          vehicleOptions={filteredBodyTypes}
-          value={filters.bodyType}
-          handleChange={handleChange}
-          disabled={!filters.vehicleType}
-        />
-        <FilterField
-          name="brand"
-          placeholder="Marka"
-          vehicleOptions={vehicleOptions.brandsWithModels}
-          value={filters.brand}
-          handleChange={handleChange}
-        />
-        <FilterField
-          name="model"
-          placeholder="Model"
-          vehicleOptions={filteredModels}
-          value={filters.model}
-          handleChange={handleChange}
-          disabled={!filters.brand}
-        />
-        <FilterField
-          name="fuel"
-          placeholder="Gorivo"
-          vehicleOptions={vehicleOptions.fuels}
-          value={filters.fuel}
-          handleChange={handleChange}
-        />
-        {/* <FilterField
+        {/* {!isHome && (
+          <>
+            <FilterField
+              name="vehicleType"
+              placeholder="Vrsta vozila"
+              vehicleOptions={vehicleOptions.vehicleTypesWithBodies}
+              value={filters.vehicleType}
+              handleChange={handleChange}
+            />
+            <FilterField
+              name="bodyType"
+              placeholder="Karoserija"
+              vehicleOptions={filteredBodyTypes}
+              value={filters.bodyType}
+              handleChange={handleChange}
+              disabled={!filters.vehicleType}
+            />
+            <FilterField
+              name="brand"
+              placeholder="Marka"
+              vehicleOptions={vehicleOptions.brandsWithModels}
+              value={filters.brand}
+              handleChange={handleChange}
+            />
+            <FilterField
+              name="model"
+              placeholder="Model"
+              vehicleOptions={filteredModels}
+              value={filters.model}
+              handleChange={handleChange}
+              disabled={!filters.brand}
+            />
+            <FilterField
+              name="fuel"
+              placeholder="Gorivo"
+              vehicleOptions={vehicleOptions.fuels}
+              value={filters.fuel}
+              handleChange={handleChange}
+            />
+            <FilterField
           name="equipmentCategory"
           placeholder="Kategorija opreme"
           vehicleOptions={vehicleOptions.equipmentCategoriesWithEquipments}
           value={filters.equipmentCategory}
           handleChange={handleChange}
-        /> */}
-        <FilterField
-          name="equipment"
-          placeholder="Oprema"
-          vehicleOptions={allEquipments}
-          value={filters.equipment}
-          handleChange={handleChange}
-        />
-        <FilterField
-          name="transmission"
-          placeholder="Menjač"
-          vehicleOptions={vehicleOptions.transmissions}
-          value={filters.transmission}
-          handleChange={handleChange}
-        />
-        <FilterField
-          name="drivetrain"
-          placeholder="Pogoni"
-          vehicleOptions={vehicleOptions.drivetrains}
-          value={filters.drivetrain}
-          handleChange={handleChange}
-        />
-        <FilterField
-          name="emission"
-          placeholder="Emisije"
-          vehicleOptions={vehicleOptions.emissions}
-          value={filters.emission}
-          handleChange={handleChange}
-        />
-        <FilterField
-          name="location"
-          placeholder="Zemlja"
-          vehicleOptions={uniqueCountries}
-          value={filters.location}
-          handleChange={handleChange}
-        />
+          />
+            <FilterField
+              name="equipment"
+              placeholder="Oprema"
+              vehicleOptions={allEquipments}
+              value={filters.equipment}
+              handleChange={handleChange}
+            />
+            <FilterField
+              name="transmission"
+              placeholder="Menjač"
+              vehicleOptions={vehicleOptions.transmissions}
+              value={filters.transmission}
+              handleChange={handleChange}
+            />
+            <FilterField
+              name="drivetrain"
+              placeholder="Pogoni"
+              vehicleOptions={vehicleOptions.drivetrains}
+              value={filters.drivetrain}
+              handleChange={handleChange}
+            />
+            <FilterField
+              name="emission"
+              placeholder="Emisije"
+              vehicleOptions={vehicleOptions.emissions}
+              value={filters.emission}
+              handleChange={handleChange}
+            />
+            <FilterField
+              name="location"
+              placeholder="Zemlja"
+              vehicleOptions={uniqueCountries}
+              value={filters.location}
+              handleChange={handleChange}
+            />
+          </>
+        )} */}
         <div>
           <input
             type="number"

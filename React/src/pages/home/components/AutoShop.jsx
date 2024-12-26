@@ -14,7 +14,7 @@ const AutoShop = () => {
         </div>
         <div className="flex flex-col sm:flex-row px-5 sm:px-0 [&>a]:w-full [&>a]:sm:w-auto">
           <Link
-            to="/cars"
+            to="/all"
             className="bg-red-500 text-white text-md mr-5 mb-5 sm:mb-0 py-2 px-7 border border-transparent rounded-lg transition hover:bg-transparent hover:text-red-500 hover:border hover:border-red-500"
           >
             Vidi ponude
