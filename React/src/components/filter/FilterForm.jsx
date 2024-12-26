@@ -1,15 +1,16 @@
-import FilterField from "./FilterField";
+// import FilterField from "./FilterField";
 import useVehicleOptions from "../../utils/useVehicleOptions";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const FilterForm = ({ isHome, filters, setFilters, onSubmitFilters }) => {
   const {
-    vehicleOptions,
-    filteredModels,
-    filteredBodyTypes,
+    // vehicleOptions,
+    // filteredModels,
+    // filteredBodyTypes,
     filterModelsAndBodies,
-    uniqueCountries,
-    allEquipments,
+    // uniqueCountries,
+    // allEquipments,
   } = useVehicleOptions();
   const navigate = useNavigate();
 
@@ -168,6 +169,31 @@ const FilterForm = ({ isHome, filters, setFilters, onSubmitFilters }) => {
       </form>
     </section>
   );
+};
+
+FilterForm.propTypes = {
+  isHome: PropTypes.bool,
+  filters: PropTypes.shape({
+    vehicleType: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    brand: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    model: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    location: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    fuel: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    bodyType: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    equipment: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    emission: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    drivetrain: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    transmission: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    equipmentCategory: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    fromYear: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    toYear: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  }),
+  setFilters: PropTypes.func.isRequired,
+  onSubmitFilters: PropTypes.func,
 };
 
 export default FilterForm;
