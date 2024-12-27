@@ -20,7 +20,7 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="font-inter flex justify-between items-center py-5 sm:py-7 md:py-4 lg:py-7 xl:py-10 px-5 lg:px-10">
+    <nav className="font-inter flex justify-between items-center py-5 md:py-7 xl:py-10 px-5 lg:px-10">
       <Link to="/">
         <svg
           width="24"
@@ -73,22 +73,25 @@ const Navbar = () => {
         <li className="hover:text-red-500 transition">
           <Link to="/create">Prodajem</Link>
         </li>
-        <li className="hover:text-red-500 transition">Usluge</li>
+        {/* <li className="hover:text-red-500 transition">Usluge</li> */}
       </ul>
       {!isAuthenticated ? (
-        <div className="gap-2 hidden sm:flex md:flex-col lg:flex-row">
-          <Link
-            to="/register"
-            className="bg-red-500 text-white text-xs md:text-sm lg:text-md py-1 lg:py-2 px-5 lg:px-7 border border-transparent rounded-lg transition hover:bg-white hover:text-red-500 hover:border-red-500"
-          >
-            Registruj se
-          </Link>
-          <Link
-            to="/login"
-            className="text-red-500 text-xs md:text-sm lg:text-md py-1 lg:py-2 px-5 lg:px-7 border rounded-lg border-red-500"
-          >
-            Prijavi se
-          </Link>
+        <div className="gap-4 hidden sm:flex">
+          <div className="gap-2 hidden sm:flex md:flex-col lg:flex-row">
+            <Link
+              to="/register"
+              className="bg-red-500 text-white text-xs md:text-sm lg:text-md py-1 lg:py-2 px-5 lg:px-7 border border-transparent rounded-lg transition hover:bg-white hover:text-red-500 hover:border-red-500"
+            >
+              Registruj se
+            </Link>
+            <Link
+              to="/login"
+              className="text-red-500 text-xs md:text-sm lg:text-md py-1 lg:py-2 px-5 lg:px-7 border rounded-lg border-red-500"
+            >
+              Prijavi se
+            </Link>
+          </div>
+          <ToggleTheme isSmall={false} />
         </div>
       ) : (
         <button
@@ -111,9 +114,12 @@ const Navbar = () => {
       )}
       {isNavOpen && (
         <div className="h-full w-full absolute top-0 right-0 bg-black/90 text-white shadow-lg flex flex-col px-5 py-16 md:hidden z-20">
-          <ul className="flex flex-col justify-center items-center gap-5 [&>li]:text-lg [&>li]:cursor-pointer">
+          <ul className="flex flex-col justify-center items-center gap-5 py-7 [&>li]:text-lg [&>li]:cursor-pointer">
             <li>
               <Link to="/">Početna</Link>
+            </li>
+            <li>
+              <Link to="/profile">Profil</Link>
             </li>
             <li>
               <Link to="/all">Ponuda vozila</Link>
@@ -121,10 +127,10 @@ const Navbar = () => {
             <li>
               <Link to="/create">Prodajem</Link>
             </li>
-            <li>Usluge</li>
+            {/* <li>Usluge</li> */}
           </ul>
           {!isAuthenticated ? (
-            <div className="flex flex-col gap-2 mt-64">
+            <div className="flex flex-col gap-2 mt-60">
               <Link
                 to="/register"
                 className="bg-red-500 text-white text-sm py-2 px-5 rounded-lg text-center"
@@ -146,14 +152,14 @@ const Navbar = () => {
                 logout();
                 toggleNav();
               }}
-              className="bg-red-500 text-white text-sm py-2 px-5 rounded-lg mt-80"
+              className="bg-red-500 text-white text-sm py-2 px-5 rounded-lg mt-60"
             >
               Odjavi se
             </button>
           )}
+          <ToggleTheme isSmall={true} />
         </div>
       )}
-      <ToggleTheme />
     </nav>
   );
 };

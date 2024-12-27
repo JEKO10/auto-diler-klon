@@ -1,13 +1,15 @@
 import { useTheme } from "../contexts/ThemeProvider";
 import { PiMoonLight, PiSunLight } from "react-icons/pi";
 
-const ToggleTheme = () => {
+const ToggleTheme = ({ isSmall }) => {
   const { theme, toggleTheme } = useTheme();
 
   return (
     <button
       onClick={toggleTheme}
-      className="text-4xl text-text absolute top-4 right-6 hover:text-background"
+      className={`${
+        isSmall ? "absolute top-6" : "static hidden"
+      } text-3xl lg:text-4xl text-white md:text-text md:block z-30 transition hover:text-red-500`}
     >
       {theme === "dark" ? (
         <PiSunLight strokeWidth={10} />

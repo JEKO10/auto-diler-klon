@@ -11,7 +11,7 @@ body {
 .home {
   background-image: url("/src/assets/heroBg.png");
   background-repeat: no-repeat;
-  background-size: 100% 10%;
+  background-size: 90% 20%;
   background-position: 105% 20px;
 }
 
@@ -43,20 +43,21 @@ body {
 
 @media (min-width: 640px) {
   .home {
-    background-size: 70% 15%;
+    background-size: 70% 25%;
   }
 }
 
 @media (min-width: 768px) {
   .home {
-    background-size: 55% 15%;
-    background-position: 105% 30px;
+    background-size: 55% 20%;
+    background-position: 105% 120px;
   }
 }
 
 @media (min-width: 1024px) {
   .home {
     background-size: 55% 30%;
+    background-position: 105% 50px;
   }
 
   .shop p {

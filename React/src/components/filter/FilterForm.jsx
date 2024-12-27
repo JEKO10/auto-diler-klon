@@ -49,7 +49,7 @@ const FilterForm = ({ isHome, filters, setFilters, onSubmitFilters }) => {
       </article>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col flex-wrap md:flex-row items-center gap-4"
+        className="flex flex-col flex-wrap md:flex-row justify-between items-center gap-4"
       >
         {/* {!isHome && (
           <>
@@ -134,32 +134,34 @@ const FilterForm = ({ isHome, filters, setFilters, onSubmitFilters }) => {
             />
           </>
         )} */}
-        <div>
+        <div className="flex justify-start sm:justify-between flex-wrap gap-4">
+          <div>
+            <input
+              type="number"
+              name="fromYear"
+              value={filters.fromYear}
+              onChange={handleChange}
+              placeholder="Godište od"
+              className="w-36 mr-3 px-4 py-2 outline-none bg-body text-text border border-primary rounded-md"
+            />
+            <input
+              type="number"
+              name="toYear"
+              value={filters.toYear}
+              onChange={handleChange}
+              placeholder="do"
+              className="w-24 px-4 py-2 outline-none bg-body text-text border border-primary rounded-md"
+            />
+          </div>
           <input
             type="number"
-            name="fromYear"
-            value={filters.fromYear}
+            value={filters.price}
+            name="price"
+            placeholder="Cijena do €"
+            className="px-4 py-2 outline-none bg-body text-text border border-primary rounded-md"
             onChange={handleChange}
-            placeholder="Godište od"
-            className="w-36 mr-4 px-4 py-2 outline-none bg-body text-text border border-primary rounded-md"
-          />
-          <input
-            type="number"
-            name="toYear"
-            value={filters.toYear}
-            onChange={handleChange}
-            placeholder="do"
-            className="w-24 px-4 py-2 outline-none bg-body text-text border border-primary rounded-md"
           />
         </div>
-        <input
-          type="number"
-          value={filters.price}
-          name="price"
-          placeholder="Cijena do €"
-          className="px-4 py-2 outline-none bg-body text-text border border-primary rounded-md"
-          onChange={handleChange}
-        />
         <button
           type="submit"
           className="bg-red-500 text-white w-full md:w-auto px-6 py-2 rounded-md font-medium"

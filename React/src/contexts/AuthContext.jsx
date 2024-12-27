@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("access_token", access_token);
       setAuthToken(access_token);
       setIsAuthenticated(true);
+      window.location.reload();
     }
   };
 
@@ -42,6 +43,7 @@ export const AuthProvider = ({ children }) => {
       login({ username: formData.email, password: formData.password });
       setMessage("Korisnik je uspješno kreiran!");
       setIsError(false);
+      window.location.reload();
     }
   };
 
@@ -49,6 +51,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("access_token");
     setAuthToken(null);
     setIsAuthenticated(false);
+    window.location.reload();
   };
 
   return (
