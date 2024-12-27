@@ -93,7 +93,7 @@ const Navbar = () => {
       ) : (
         <button
           onClick={logout}
-          className="hidden sm:block text-xs md:text-sm lg:text-md py-1 lg:py-2 px-5 lg:px-7 bg-red-500 text-white rounded-lg"
+          className="hidden sm:block text-xs md:text-sm lg:text-md py-1 lg:py-2 px-5 lg:px-7 bg-red-500 text-white border rounded-lg transition hover:bg-white hover:text-red-500 hover:border-red-500"
         >
           Odjavi se
         </button>

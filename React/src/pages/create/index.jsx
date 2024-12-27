@@ -128,84 +128,84 @@ const Create = () => {
   }, []);
 
   return (
-    <section className="p-8 max-w-3xl mx-auto">
-      <h2 className="text-3xl font-bold mb-6">Create Car Listing</h2>
+    <section className="p-6 max-w-5xl mx-auto">
+      <h2 className="text-3xl font-bold mb-14 text-center">Dodajte oglas</h2>
       <form
         onSubmit={handleSubmit}
-        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-14"
       >
         <FormInput
-          label="Title"
+          label="Naslov"
           name="title"
           type="text"
           value={formData.title}
           onChange={handleChange}
         />
         <FormInput
-          label="Description"
+          label="Opis"
           name="description"
           type="text"
           value={formData.description}
           onChange={handleChange}
         />
         <FormInput
-          label="Price (€)"
+          label="Cijena (€)"
           name="price"
           type="number"
           value={formData.price}
           onChange={handleChange}
         />
         <FormInput
-          label="Year"
+          label="Godište"
           name="year"
           type="number"
           value={formData.year}
           onChange={handleChange}
         />
         <FormInput
-          label="Mileage (km)"
+          label="Kilometraža (km)"
           name="mileage"
           type="number"
           value={formData.mileage}
           onChange={handleChange}
         />
         <FormInput
-          label="Engine Displacement (L)"
+          label="Motor (L)"
           name="engine_displacement"
           type="number"
           value={formData.engine_displacement}
           onChange={handleChange}
         />
         <FormInput
-          label="Kilowatts (kW)"
+          label="Kilovati (kW)"
           name="kilowatts"
           type="number"
           value={formData.kilowatts}
           onChange={handleChange}
         />
         <FormInput
-          label="Horsepowers (HP)"
+          label="Konjska snaga (KS)"
           name="horsepowers"
           type="number"
           value={formData.horsepowers}
           onChange={handleChange}
         />
         <FormInput
-          label="Color"
+          label="Boja"
           name="color"
           type="text"
           value={formData.color}
           onChange={handleChange}
         />
         <FormInput
-          label="Doors Number"
+          label="Broj vrata"
           name="doors_number"
           type="text"
           value={formData.doors_number}
           onChange={handleChange}
         />
         <FormInput
-          label="Payload Capacity"
+          label="Kapacitet nosivosti"
           name="payload_capacity"
           type="text"
           value={formData.payload_capacity}
@@ -219,7 +219,7 @@ const Create = () => {
           onChange={handleChange}
         />
         <FormInput
-          label="Fuel Type"
+          label="Gorivo"
           name="fuel_id"
           type="select"
           value={formData.fuel_id}
@@ -227,7 +227,7 @@ const Create = () => {
           options={vehicleOptions.fuels}
         />
         <FormInput
-          label="Brand"
+          label="Marka"
           name="brand_id"
           type="select"
           value={formData.brand_id}
@@ -260,7 +260,7 @@ const Create = () => {
           options={uniqueCities}
         />
         <FormInput
-          label="Emission Standard"
+          label="Emisiona klasa motora"
           name="emission_standard_id"
           type="select"
           value={formData.emission_standard_id}
@@ -268,7 +268,7 @@ const Create = () => {
           options={vehicleOptions.emissions}
         />
         <FormInput
-          label="Drivetrain"
+          label="Pogon"
           name="drivetrain_id"
           type="select"
           value={formData.drivetrain_id}
@@ -276,7 +276,7 @@ const Create = () => {
           options={vehicleOptions.drivetrains}
         />
         <FormInput
-          label="Transmission"
+          label="Menjač"
           name="transmission_id"
           type="select"
           value={formData.transmission_id}
@@ -284,7 +284,7 @@ const Create = () => {
           options={vehicleOptions.transmissions}
         />
         <FormInput
-          label="Vehicle Type"
+          label="Tip vozila"
           name="vehicle_type_id"
           type="select"
           value={formData.vehicle_type_id}
@@ -292,7 +292,7 @@ const Create = () => {
           options={vehicleOptions.vehicleTypesWithBodies}
         />
         <FormInput
-          label="Body Type"
+          label="Karoserija"
           name="body_type_id"
           type="select"
           value={formData.body_type_id}
@@ -301,14 +301,14 @@ const Create = () => {
           disabled={!formData.vehicle_type_id}
         />
         <FormInput
-          label="Equipment"
+          label="Oprema"
           name="equipment_ids"
           type="select"
           value={formData.equipment_ids}
           onChange={handleChange}
           options={allEquipments}
         />
-        <div className="col-span-2">
+        <div className="col-span-1 sm:col-span-2">
           <label className="text-sm font-medium">Upload Images</label>
           <input
             type="file"
@@ -316,16 +316,18 @@ const Create = () => {
             multiple
             accept="image/*"
             onChange={handleImageChange}
-            className="border rounded-md p-2 w-full"
+            className="bg-body text-text border rounded-md p-2 w-full"
           />
         </div>
-        <button
-          type="submit"
-          className="col-span-2 bg-red-500 text-white py-3 rounded-md"
-          disabled={loading}
-        >
-          {loading ? "Creating..." : "Create Listing"}
-        </button>
+        <div className="col-span-1 sm:col-span-2">
+          <button
+            type="submit"
+            className="bg-red-500 text-white w-full py-3 rounded-md"
+            disabled={loading}
+          >
+            {loading ? "Dodavanje..." : "Dodaj"}
+          </button>
+        </div>
       </form>
     </section>
   );

@@ -10,17 +10,17 @@ const FormInput = ({
   disabled = false,
 }) => {
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-1 w-full">
       <label className="text-sm font-medium">{label}</label>
       {type === "select" ? (
         <select
           name={name}
           value={value}
           onChange={onChange}
-          className="border rounded-md p-2 w-full"
+          className="bg-body text-text border rounded-md p-2 w-full"
           disabled={disabled}
         >
-          <option value="">{`Select ${label}`}</option>
+          <option value="">{`Izaberi ${label}`}</option>
           {options.map((option) => (
             <option key={option.id} value={option.id}>
               {option.name}
@@ -33,7 +33,7 @@ const FormInput = ({
           name={name}
           value={value}
           onChange={onChange}
-          className="border rounded-md p-2 w-full"
+          className="bg-body text-text border rounded-md p-2 w-full"
         />
       )}
     </div>
@@ -53,12 +53,6 @@ FormInput.propTypes = {
   options: PropTypes.array,
   multiple: PropTypes.bool,
   disabled: PropTypes.bool,
-};
-
-FormInput.defaultProps = {
-  options: [],
-  multiple: false,
-  disabled: false,
 };
 
 export default FormInput;
