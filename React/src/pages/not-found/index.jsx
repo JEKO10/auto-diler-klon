@@ -18,11 +18,17 @@ const NotFound = () => {
         <Link to="/" className="text-xl text-red-500">
           Nazad na bezbjedno →
         </Link>
-        {theme === "light" && (
+        {theme === "light" ? (
           <img
             src={ErrorImg}
             alt="Error"
-            className="w-full sm:w-1/2 absolute right-0 bottom-0"
+            className="w-full sm:w-1/2 absolute right-0 bottom-0 transition-all duration-[1s] ease-in-out opacity-100"
+          />
+        ) : (
+          <img
+            src={ErrorImg}
+            alt="Error"
+            className="w-full sm:w-1/2 absolute right-0 bottom-0 opacity-0"
           />
         )}
       </section>

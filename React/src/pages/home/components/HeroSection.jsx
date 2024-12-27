@@ -1,6 +1,10 @@
 import heroImage from "../../../assets/hero.png";
+import darkImage from "../../../assets/darkHero.png";
+import { useTheme } from "../../../contexts/ThemeProvider";
 
 const HeroSection = () => {
+  const { theme } = useTheme();
+
   return (
     <section className="font-inter flex flex-col md:flex-row h-[100vh] md:h-auto items-center md:items-start justify-between px-5 md:px-0 md:pl-8 py-10 lg:py-16">
       <div className="md:max-w-md md:pr-5">
@@ -23,7 +27,15 @@ const HeroSection = () => {
         </div>
       </div>
       <div className="mt-[8rem] hidden md:block">
-        <img src={heroImage} alt="Hero Car" className="w-full" />
+        {theme === "light" ? (
+          <img
+            src={heroImage}
+            alt="Error"
+            className="w-full transition-all duration-300 ease-in-out opacity-100"
+          />
+        ) : (
+          <img src={darkImage} alt="Error" className="w-full opacity-80" />
+        )}
       </div>
     </section>
   );

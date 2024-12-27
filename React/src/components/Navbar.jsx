@@ -94,12 +94,15 @@ const Navbar = () => {
           <ToggleTheme isSmall={false} />
         </div>
       ) : (
-        <button
-          onClick={logout}
-          className="hidden sm:block text-xs md:text-sm lg:text-md py-1 lg:py-2 px-5 lg:px-7 bg-red-500 text-white border rounded-lg transition hover:bg-white hover:text-red-500 hover:border-red-500"
-        >
-          Odjavi se
-        </button>
+        <div className="gap-4 hidden sm:flex">
+          <button
+            onClick={logout}
+            className="hidden sm:block text-xs md:text-sm lg:text-md py-1 lg:py-2 px-5 lg:px-7 bg-red-500 text-white border rounded-lg transition hover:bg-white hover:text-red-500 hover:border-red-500"
+          >
+            Odjavi se
+          </button>
+          <ToggleTheme isSmall={false} />
+        </div>
       )}
       {!isNavOpen ? (
         <RiMenu3Fill
@@ -157,7 +160,7 @@ const Navbar = () => {
               Odjavi se
             </button>
           )}
-          <ToggleTheme isSmall={true} />
+          <ToggleTheme toggleNav={toggleNav} isSmall={true} />
         </div>
       )}
     </nav>
