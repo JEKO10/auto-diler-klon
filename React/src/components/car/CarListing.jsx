@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import CarCard from "./CarCard";
 import SkeletonCard from "./SkeletonCard";
 
-const CarListing = ({ carData, title, isLoading }) => {
+const CarListing = ({ carData, title, isLoading, errorMessage }) => {
   return (
     <section className="my-10 md:p-8 px-5 text-text">
       <div className="flex justify-between items-center mb-6">
@@ -14,7 +14,7 @@ const CarListing = ({ carData, title, isLoading }) => {
         )}
       </div>
       {!isLoading && carData.length === 0 && (
-        <p className="text-red-500 h-60">Nema vozila.</p>
+        <p className="text-red-500 h-60">{errorMessage}</p>
       )}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {isLoading

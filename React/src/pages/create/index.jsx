@@ -322,7 +322,7 @@ const Create = () => {
         <div className="col-span-1 sm:col-span-2">
           <button
             type="submit"
-            className="bg-red-500 text-white w-full py-3 rounded-md"
+            className="bg-red-500 text-white w-full mt-5 py-3 rounded-md"
             disabled={loading}
           >
             {loading ? "Dodavanje..." : "Dodaj"}

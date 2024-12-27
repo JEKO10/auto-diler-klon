@@ -81,6 +81,7 @@ const AllVehicles = () => {
         carData={filteredCars}
         isLoading={isLoading}
         title={"Svi oglasi"}
+        errorMessage={"Nijedno vozilo nije pronađeno."}
       />
     </section>
   );

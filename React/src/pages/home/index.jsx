@@ -28,6 +28,7 @@ const Home = () => {
         carData={latestCars}
         isLoading={isLoading}
         title={"Najnoviji oglasi"}
+        errorMessage={"Nijedno vozilo nije pronađeno."}
       />
       <PlatformNumbers />
       <AutoShop />

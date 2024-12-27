@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
 import { getCarById } from "../../services/carService";
 import { useParams } from "react-router-dom";
+import ImageModal from "./components/ImageModal";
+import CarInfo from "./components/CarInfo";
+import ControlBtns from "./components/ControlBtns";
 
 const SingleCar = () => {
   const [carData, setCarData] = useState([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [imageIndex, setImageIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { id } = useParams();
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -17,9 +22,6 @@ const SingleCar = () => {
     try {
       const response = await getCarById(id);
       setCarData(response.data);
-      if (response.data.images && response.data.images.length > 0) {
-        setSelectedImage(response.data.images[0].image_url);
-      }
       setIsLoading(false);
     } catch (err) {
       const errorMessage =
@@ -35,9 +37,21 @@ const SingleCar = () => {
     setSelectedImage(image);
   };
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
   useEffect(() => {
     fetchCarData();
   }, [id]);
+
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [isModalOpen]);
 
   if (isLoading) {
     return <div className="loading" />;
@@ -45,7 +59,7 @@ const SingleCar = () => {
   if (carData.length === 0) {
     return (
       <p className="text-center text-red-500 h-screen">
-        Greška pri učitavanju podataka o vozilu
+        Greška pri učitavanju podataka o vozilu.
       </p>
     );
   }
@@ -59,10 +73,16 @@ const SingleCar = () => {
         €{carData.price}
       </p>
       <div className="relative">
+        <ControlBtns
+          setImageIndex={setImageIndex}
+          imageIndex={imageIndex}
+          totalImages={carData.images.length}
+        />
         <img
-          src={`${BASE_URL}${selectedImage}`}
+          src={`${BASE_URL}${carData.images[imageIndex].image_url}`}
           alt={`${carData.brand} ${carData.model}`}
-          className="w-full h-[500px] object-cover rounded-md"
+          className="w-full h-[300px] lg:h-[500px] object-cover rounded-md cursor-pointer"
+          onClick={openModal}
         />
         <div className="flex mt-4 space-x-4 overflow-x-auto">
           {carData.images.map((img, index) => (
@@ -71,79 +91,28 @@ const SingleCar = () => {
               src={`${BASE_URL}${img.image_url}`}
               alt={`Car image ${index + 1}`}
               className={`w-32 h-24 object-cover rounded-md cursor-pointer ${
-                selectedImage === img.image_url ? "border-4 border-red-500" : ""
+                selectedImage === img.image_url || index === imageIndex
+                  ? "border-4 border-red-500"
+                  : ""
               }`}
-              onClick={() => handleThumbnailClick(img.image_url)}
+              onClick={() => {
+                handleThumbnailClick(img.image_url);
+                setImageIndex(index);
+              }}
             />
           ))}
         </div>
       </div>
-      <div className="mt-6">
-        <h2 className="text-2xl font-bold">Naslov</h2>
-        <p className="text-primary mt-2">{carData.title}</p>
-        <h2 className="text-2xl font-bold">Opis</h2>
-        <p className="text-primary mt-2">{carData.description}</p>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-        <div className="border p-4 rounded-md">
-          <h3 className="text-xl font-semibold mb-4">Opšte informacije</h3>
-          <ul className="space-y-2">
-            <li>
-              <strong>Marka:</strong> {carData.brand}
-            </li>
-            <li>
-              <strong>Model:</strong> {carData.model}
-            </li>
-            <li>
-              <strong>Godište:</strong> {carData.year}
-            </li>
-            <li>
-              <strong>Karoserija:</strong> {carData.body_type}
-            </li>
-            <li>
-              <strong>Gorivo:</strong> {carData.fuel}
-            </li>
-            <li>
-              <strong>Kilometraža:</strong> {carData.mileage} km
-            </li>
-          </ul>
-        </div>
-        <div className="border p-4 rounded-md">
-          <h3 className="text-xl font-semibold mb-4">Dodatne informacije</h3>
-          <ul className="space-y-2">
-            <li>
-              <strong>Pogon:</strong> {carData.drivetrain}
-            </li>
-            <li>
-              <strong>Menjač:</strong> {carData.transmission}
-            </li>
-            <li>
-              <strong>Snaga:</strong> {carData.horsepowers} KS
-            </li>
-            <li>
-              <strong>Emisiona klasa:</strong> {carData.emission_standard}
-            </li>
-            <li>
-              <strong>Boja:</strong> {carData.color}
-            </li>
-            <li>
-              <strong>Broj vrata:</strong> {carData.doors_number}
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div className="mt-8 p-4 border rounded-md">
-        <h3 className="text-xl font-semibold mb-2">Lokacija</h3>
-        <p>
-          {carData.location.city}, {carData.location.country}
-        </p>
-        <h3 className="text-xl font-semibold mt-4">Korisnik</h3>
-        <p>
-          {carData.user.first_name} {carData.user.last_name}
-        </p>
-        <p>Email: {carData.user.email}</p>
-        <p>Telefon: {carData.user.phone_number}</p>
-      </div>
+      {isModalOpen && (
+        <ImageModal
+          setIsModalOpen={setIsModalOpen}
+          selectedImage={carData.images[imageIndex].image_url}
+          setImageIndex={setImageIndex}
+          imageIndex={imageIndex}
+          totalImages={carData.images.length}
+        />
+      )}
+      <CarInfo carData={carData} />
     </div>
   );
 };

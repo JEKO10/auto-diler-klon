@@ -19,6 +19,7 @@ const FormInput = ({
           onChange={onChange}
           className="bg-body text-text border rounded-md p-2 w-full"
           disabled={disabled}
+          required
         >
           <option value="">{`Izaberi ${label}`}</option>
           {options.map((option) => (
@@ -33,6 +34,7 @@ const FormInput = ({
           name={name}
           value={value}
           onChange={onChange}
+          required
           className="bg-body text-text border rounded-md p-2 w-full"
         />
       )}
