@@ -43,7 +43,6 @@ export const AuthProvider = ({ children }) => {
       login({ username: formData.email, password: formData.password });
       setMessage("Korisnik je uspješno kreiran!");
       setIsError(false);
-      window.location.reload();
     }
   };
 

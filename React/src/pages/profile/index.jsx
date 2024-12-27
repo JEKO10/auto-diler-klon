@@ -65,7 +65,7 @@ const Profile = () => {
       />
       <Link
         to="/create"
-        className="flex items-center w-fit bg-red-500 text-white text-md py-1 px-7 border border-transparent rounded-lg transition hover:bg-white hover:text-red-500 hover:border-red-500"
+        className="flex items-center w-fit bg-red-500 text-white text-md py-2 px-7 border border-transparent rounded-lg transition hover:bg-white hover:text-red-500 hover:border-red-500"
       >
         <span className="mr-2">Dodajte oglas</span>
         <GrLinkNext />

@@ -44,6 +44,8 @@ const Create = () => {
   });
   const [imageFiles, setImageFiles] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [isError, setIsError] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
@@ -72,10 +74,28 @@ const Create = () => {
     }));
   };
 
+  const validateForm = () => {
+    for (const key in formData) {
+      if (
+        formData[key] === "" &&
+        key !== "equipment_ids" &&
+        key !== "images" &&
+        key !== "payload_capacity" &&
+        key !== "axle_count"
+      ) {
+        setMessage("Sva obavezna polja moraju biti popunjena.");
+        setIsError(true);
+        return false;
+      }
+    }
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    if (!validateForm()) return;
 
+    setLoading(true);
     const formattedData = {
       ...formData,
       body_type_id: parseInt(formData.body_type_id) || null,
@@ -102,10 +122,41 @@ const Create = () => {
 
     try {
       await createCar(queryParams, payload);
-      console.log("Car listing created successfully!");
+      setMessage("Oglas je uspješno dodat!");
+      setIsError(false);
+      setFormData({
+        title: "",
+        description: "",
+        price: "",
+        year: "",
+        mileage: "",
+        engine_displacement: "",
+        kilowatts: "",
+        horsepowers: "",
+        color: "",
+        doors_number: "",
+        payload_capacity: "",
+        axle_count: "",
+        user_id: "",
+        fuel_id: "",
+        model_id: "",
+        brand_id: "",
+        location_id: "",
+        city_id: "",
+        emission_standard_id: "",
+        drivetrain_id: "",
+        transmission_id: "",
+        vehicle_type_id: "",
+        body_type_id: "",
+        equipment_ids: "",
+        images: [],
+      });
+      setImageFiles([]);
     } catch (error) {
-      console.error("Error creating car:", error);
-      console.log("Failed to create listing.");
+      setMessage(
+        "Greška pri dodavanju oglasa. Provjerite sva polja i pokušajte ponovo."
+      );
+      setIsError(true);
     } finally {
       setLoading(false);
     }
@@ -117,10 +168,8 @@ const Create = () => {
         const response = await getUserProfile();
         setFormData({ ...formData, user_id: response.data.id });
       } catch (err) {
-        const errorMessage =
-          err.response?.data?.detail ||
-          "Preuzimanje informacija o korisniku nije uspjelo.";
-        console.log(errorMessage);
+        setMessage("Preuzimanje informacija o korisniku nije uspjelo.");
+        setIsError(true);
       }
     };
 
@@ -309,7 +358,7 @@ const Create = () => {
           options={allEquipments}
         />
         <div className="col-span-1 sm:col-span-2">
-          <label className="text-sm font-medium">Upload Images</label>
+          <label className="text-sm font-medium">Dodaj Slike</label>
           <input
             type="file"
             name="images"
@@ -319,10 +368,21 @@ const Create = () => {
             className="bg-body text-text border rounded-md p-2 w-full"
           />
         </div>
+        {message && (
+          <div
+            className={`col-span-2 w-full text-center mb-3 p-3 rounded-md ${
+              isError
+                ? "bg-red-200 text-red-700"
+                : "bg-green-200 text-green-700"
+            }`}
+          >
+            {message}
+          </div>
+        )}
         <div className="col-span-1 sm:col-span-2">
           <button
             type="submit"
-            className="bg-red-500 text-white w-full mt-5 py-3 rounded-md"
+            className="bg-red-500 text-white w-full py-3 rounded-md"
             disabled={loading}
           >
             {loading ? "Dodavanje..." : "Dodaj"}

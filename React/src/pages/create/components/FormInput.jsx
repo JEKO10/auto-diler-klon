@@ -21,7 +21,7 @@ const FormInput = ({
           disabled={disabled}
           required
         >
-          <option value="">{`Izaberi ${label}`}</option>
+          <option value="">{`${label}`}</option>
           {options.map((option) => (
             <option key={option.id} value={option.id}>
               {option.name}
