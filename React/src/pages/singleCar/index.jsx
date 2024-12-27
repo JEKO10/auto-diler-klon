@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { getCarById } from "../../services/carService";
+import { getCarById, deleteCar } from "../../services/carService";
 import { useParams } from "react-router-dom";
 import ImageModal from "./components/ImageModal";
 import CarInfo from "./components/CarInfo";
 import ControlBtns from "./components/ControlBtns";
+import { useAuthContext } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const SingleCar = () => {
   const [carData, setCarData] = useState([]);
@@ -13,7 +15,9 @@ const SingleCar = () => {
   const [imageIndex, setImageIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { id } = useParams();
+  const { user } = useAuthContext();
   const BASE_URL = import.meta.env.VITE_BASE_URL;
+  const navigate = useNavigate();
 
   const fetchCarData = async () => {
     setIsLoading(true);
@@ -33,12 +37,14 @@ const SingleCar = () => {
     }
   };
 
-  const handleThumbnailClick = (image) => {
-    setSelectedImage(image);
-  };
-
-  const openModal = () => {
-    setIsModalOpen(true);
+  const handleDelete = async (postId) => {
+    try {
+      await deleteCar(postId);
+      setError("Ogral uspješno obrisan!");
+      navigate("/profile");
+    } catch (error) {
+      setError("Neuspješno brisanje oglasa!");
+    }
   };
 
   useEffect(() => {
@@ -72,6 +78,16 @@ const SingleCar = () => {
       <p className="text-primary text-2xl font-semibold mb-6">
         €{carData.price}
       </p>
+      {user && user.id === carData.user.id && (
+        <div className="mb-8 text-right">
+          <button
+            onClick={() => handleDelete(carData.id)}
+            className="bg-red-500 text-white px-6 py-2 rounded-md hover:bg-white hover:text-red-500 border border-red-500"
+          >
+            Obriši oglas
+          </button>
+        </div>
+      )}
       <div className="relative">
         <ControlBtns
           setImageIndex={setImageIndex}
@@ -82,7 +98,7 @@ const SingleCar = () => {
           src={`${BASE_URL}${carData.images[imageIndex].image_url}`}
           alt={`${carData.brand} ${carData.model}`}
           className="w-full h-[300px] lg:h-[500px] object-cover rounded-md cursor-pointer"
-          onClick={openModal}
+          onClick={() => setIsModalOpen(true)}
         />
         <div className="flex mt-4 space-x-4 overflow-x-auto">
           {carData.images.map((img, index) => (
@@ -96,7 +112,7 @@ const SingleCar = () => {
                   : ""
               }`}
               onClick={() => {
-                handleThumbnailClick(img.image_url);
+                setSelectedImage(img.image_url);
                 setImageIndex(index);
               }}
             />

@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import FormInput from "./components/FormInput";
 import { createCar } from "../../services/carService";
-
 import useVehicleOptions from "../../utils/useVehicleOptions";
-import { getUserProfile } from "../../services/authService";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 const Create = () => {
   const {
@@ -46,6 +45,7 @@ const Create = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
+  const { user } = useAuthContext();
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
@@ -163,18 +163,10 @@ const Create = () => {
   };
 
   useEffect(() => {
-    const setUserId = async () => {
-      try {
-        const response = await getUserProfile();
-        setFormData({ ...formData, user_id: response.data.id });
-      } catch (err) {
-        setMessage("Preuzimanje informacija o korisniku nije uspjelo.");
-        setIsError(true);
-      }
-    };
-
-    setUserId();
-  }, []);
+    if (user) {
+      setFormData((prev) => ({ ...prev, user_id: user.id }));
+    }
+  }, [user]);
 
   return (
     <section className="p-6 max-w-5xl mx-auto">

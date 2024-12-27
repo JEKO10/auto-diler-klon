@@ -1,23 +1,21 @@
 import { useEffect, useState } from "react";
-import { getUserPosts, getUserProfile } from "../../services/authService";
+import { getUserPosts } from "../../services/authService";
 import CarListing from "../../components/car/CarListing";
 import UpdateUserForm from "./components/UpdateUserForm";
 import { Link } from "react-router-dom";
 import { GrLinkNext } from "react-icons/gr";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 const Profile = () => {
-  const [user, setUser] = useState(null);
   const [userPosts, setUserPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { user } = useAuthContext();
 
   const getUserData = async () => {
     setIsLoading(true);
 
     try {
-      const response = await getUserProfile();
-      setUser(response.data);
-
-      const postsResponse = await getUserPosts(response.data.id);
+      const postsResponse = await getUserPosts(user.id);
       setUserPosts(postsResponse.data);
       setIsLoading(false);
     } catch (err) {

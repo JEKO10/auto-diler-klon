@@ -24,3 +24,7 @@ export const createCar = async (queryParams, formData) => {
     throw error;
   }
 };
+
+export const deleteCar = async (id) => {
+  return apiRequest("delete", `/posts/delete?post_id=${id}`);
+};

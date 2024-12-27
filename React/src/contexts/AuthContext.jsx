@@ -1,5 +1,9 @@
-import { createContext, useState, useContext } from "react";
-import { loginUser, registerUser } from "../services/authService";
+import { createContext, useState, useContext, useEffect } from "react";
+import {
+  getUserProfile,
+  loginUser,
+  registerUser,
+} from "../services/authService";
 
 const authContext = createContext({});
 
@@ -10,6 +14,20 @@ export const AuthProvider = ({ children }) => {
     localStorage.getItem("access_token")
   );
   const [isAuthenticated, setIsAuthenticated] = useState(!!authToken);
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || null
+  );
+
+  const fetchUser = async () => {
+    try {
+      const response = await getUserProfile();
+      setUser(response.data);
+      localStorage.setItem("user", JSON.stringify(response.data));
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      logout();
+    }
+  };
 
   const login = async (formData) => {
     const response = await loginUser(formData);
@@ -19,6 +37,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("access_token", access_token);
       setAuthToken(access_token);
       setIsAuthenticated(true);
+      await fetchUser();
       window.location.reload();
     }
   };
@@ -48,13 +67,23 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem("access_token");
+    localStorage.removeItem("user");
     setAuthToken(null);
     setIsAuthenticated(false);
+    setUser(null);
     window.location.reload();
   };
 
+  useEffect(() => {
+    if (authToken && !user) {
+      fetchUser();
+    }
+  }, [authToken]);
+
   return (
-    <Provider value={{ authToken, isAuthenticated, login, logout, register }}>
+    <Provider
+      value={{ user, authToken, isAuthenticated, login, logout, register }}
+    >
       {children}
     </Provider>
   );
