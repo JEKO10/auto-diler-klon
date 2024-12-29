@@ -10,7 +10,11 @@ export const Layout = () => {
   return (
     <>
       <ScrollToTop />
-      {location.pathname === "/" ? "" : <Navbar />}
+      {location.pathname === "/" || location.pathname === "/profile" ? (
+        ""
+      ) : (
+        <Navbar />
+      )}
       <Outlet />
       <Footer />
     </>
