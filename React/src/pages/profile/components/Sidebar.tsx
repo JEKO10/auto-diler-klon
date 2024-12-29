@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { MdOutlineModeEdit } from "react-icons/md";
+import { MdOutlineModeEdit, MdNotificationsNone } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { IoCarSportOutline } from "react-icons/io5";
 
-const Sidebar = () => {
+const Sidebar = ({ page, setPage }) => {
   return (
-    <aside className="bg-red-500 h-full w-fit flex items-center flex-col text-white px-4 py-5 [&>*]:my-7 [&>*]:cursor-pointer">
+    <aside className="absolute top-0 bg-red-500 h-fit w-fit flex items-center flex-col text-white px-4 py-5 [&>*]:my-7 [&>*]:cursor-pointer">
       <Link to="/">
         <svg
           width="24"
@@ -49,9 +49,30 @@ const Sidebar = () => {
           </defs>
         </svg>
       </Link>
-      <MdOutlineModeEdit className="text-2xl" />
-      <CgProfile className="text-2xl" />
-      <IoCarSportOutline className="text-2xl" />
+      <CgProfile
+        onClick={() => setPage("profile")}
+        className={`text-2xl ${
+          page === "profile" && "text-black"
+        } transition-colors hover:text-black`}
+      />
+      <IoCarSportOutline
+        onClick={() => setPage("car")}
+        className={`text-2xl ${
+          page === "car" && "text-black"
+        } transition-colors hover:text-black`}
+      />
+      <MdOutlineModeEdit
+        onClick={() => setPage("edit")}
+        className={`text-2xl ${
+          page === "edit" && "text-black"
+        } transition-colors hover:text-black`}
+      />
+      <MdNotificationsNone
+        onClick={() => setPage("notif")}
+        className={`text-2xl ${
+          page === "notif" && "text-black"
+        } transition-colors hover:text-black`}
+      />
     </aside>
   );
 };
