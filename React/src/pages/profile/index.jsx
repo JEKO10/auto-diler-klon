@@ -4,6 +4,7 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import Sidebar from "./components/Sidebar";
 import ProfileForm from "./components/ProfileForm";
 import CarListing from "../../components/car/CarListing";
+import Notifs from "./components/Notifs";
 
 const Profile = () => {
   const [userPosts, setUserPosts] = useState([]);
@@ -56,6 +57,8 @@ const Profile = () => {
             errorMessage={`Još uvijek nemate oglase.`}
           />
         </div>
+      ) : page === "notif" ? (
+        <Notifs />
       ) : (
         ""
       )}

@@ -8,7 +8,7 @@ const ProfileForm = ({ userId, initialData }) => {
     contact: initialData.phone_number || "",
     password: "",
   });
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -19,17 +19,24 @@ const ProfileForm = ({ userId, initialData }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setIsLoading(true);
     setSuccessMessage("");
     setErrorMessage("");
+
+    if (formData.password && formData.password.length < 6) {
+      setErrorMessage("Lozinka mora imati najmanje 6 karaktera.");
+      setIsLoading(false);
+      return;
+    }
 
     try {
       await updateUser(userId, formData);
       setSuccessMessage("Podaci uspješno ažurirani!");
     } catch (error) {
       setErrorMessage("Pokušajte ponovo kasnije.");
+      setIsLoading(false);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -96,9 +103,9 @@ const ProfileForm = ({ userId, initialData }) => {
           <button
             type="submit"
             className="bg-red-500 text-white px-6 py-2 rounded-md hover:bg-red-600"
-            disabled={loading}
+            disabled={isLoading}
           >
-            {loading ? "Ažuriranje..." : "Potvrdi"}
+            {isLoading ? "Ažuriranje..." : "Potvrdi"}
           </button>
         </div>
       </form>
