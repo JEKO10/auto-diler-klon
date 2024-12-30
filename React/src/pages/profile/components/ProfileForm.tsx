@@ -34,7 +34,7 @@ const ProfileForm = ({ userId, initialData }) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white my-14 p-5 lg:p-8  rounded-lg shadow-md">
+    <div className="max-w-4xl mx-auto bg-white my-14 p-5 lg:p-8 rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">
         Ažurirajte podatke
       </h2>

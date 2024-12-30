@@ -3,6 +3,7 @@ import { getUserPosts } from "../../services/authService";
 import { useAuthContext } from "../../contexts/AuthContext";
 import Sidebar from "./components/Sidebar";
 import ProfileForm from "./components/ProfileForm";
+import CarListing from "../../components/car/CarListing";
 
 const Profile = () => {
   const [userPosts, setUserPosts] = useState([]);
@@ -46,6 +47,15 @@ const Profile = () => {
             phone_number: user.phone_number,
           }}
         />
+      ) : page === "car" ? (
+        <div className="lg:pl-24 h-[525px]">
+          <CarListing
+            isLoading={isLoading}
+            carData={Array.isArray(userPosts) ? userPosts : []}
+            title={`Vaši Oglasi`}
+            errorMessage={`Još uvijek nemate oglase.`}
+          />
+        </div>
       ) : (
         ""
       )}

@@ -6,7 +6,7 @@ import { IoCarSportOutline } from "react-icons/io5";
 
 const Sidebar = ({ page, setPage }) => {
   return (
-    <aside className="lg:absolute top-0 bg-red-500 h-[565px] w-full lg:w-fit flex justify-between items-center lg:flex-col text-white px-4 py-5 sm:p-8 [&>*]:lg:my-7 [&>*]:cursor-pointer">
+    <aside className="lg:absolute top-0 bg-red-500 h-fit w-full lg:w-fit flex justify-between items-center lg:flex-col text-white px-4 sm:px-8 py-5 lg:py-[4.15rem] [&>*]:lg:my-7 [&>*]:cursor-pointer">
       <Link to="/">
         <svg
           width="24"
@@ -14,7 +14,7 @@ const Sidebar = ({ page, setPage }) => {
           viewBox="0 0 24 26"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="w-7 h-7 xl:w-6 xl:h-6"
+          className="w-7 h-7 lg:w-8 lg:h-8"
         >
           <g clipPath="url(#clip0_4_3488)">
             <path
@@ -51,25 +51,25 @@ const Sidebar = ({ page, setPage }) => {
       </Link>
       <CgProfile
         onClick={() => setPage("profile")}
-        className={`text-3xl ${
+        className={`text-2xl lg:text-3xl ${
           page === "profile" && "text-black"
         } transition-colors hover:text-black`}
       />
       <IoCarSportOutline
         onClick={() => setPage("car")}
-        className={`text-3xl ${
+        className={`text-2xl lg:text-3xl ${
           page === "car" && "text-black"
         } transition-colors hover:text-black`}
       />
       <MdOutlineModeEdit
         onClick={() => setPage("edit")}
-        className={`text-3xl ${
+        className={`text-2xl lg:text-3xl ${
           page === "edit" && "text-black"
         } transition-colors hover:text-black`}
       />
       <MdNotificationsNone
         onClick={() => setPage("notif")}
-        className={`text-3xl ${
+        className={`text-2xl lg:text-3xl ${
           page === "notif" && "text-black"
         } transition-colors hover:text-black`}
       />

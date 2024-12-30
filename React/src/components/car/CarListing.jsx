@@ -16,7 +16,11 @@ const CarListing = ({ carData, title, isLoading, errorMessage }) => {
       {!isLoading && carData.length === 0 && (
         <p className="text-red-500 h-60">{errorMessage}</p>
       )}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div
+        className={`grid grid-cols-1 sm:grid-cols-2 ${
+          title === "Vaši Oglasi" ? "lg:grid-cols-3" : "lg:grid-cols-4"
+        } gap-6`}
+      >
         {isLoading
           ? [...Array(4)].map((_, index) => <SkeletonCard key={index} />)
           : carData.map((car) => <CarCard key={car.id} car={car} />)}
