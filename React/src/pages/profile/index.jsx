@@ -5,8 +5,9 @@ import Sidebar from "./components/Sidebar";
 import ProfileForm from "./components/ProfileForm";
 import CarListing from "../../components/car/CarListing";
 import Notifs from "./components/Notifs";
+import Profile from "./components/Profile";
 
-const Profile = () => {
+const ProfilePage = () => {
   const [userPosts, setUserPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState("profile");
@@ -39,7 +40,9 @@ const Profile = () => {
   return (
     <div>
       <Sidebar page={page} setPage={setPage} />
-      {page === "edit" ? (
+      {page === "profile" ? (
+        <Profile setPage={setPage} />
+      ) : page === "edit" ? (
         <ProfileForm
           userId={user.id}
           initialData={{
@@ -66,4 +69,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfilePage;

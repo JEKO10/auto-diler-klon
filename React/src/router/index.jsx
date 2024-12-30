@@ -3,13 +3,13 @@ import Home from "../pages/home";
 import NotFound from "../pages/not-found";
 import Register from "../pages/register";
 import Login from "../pages/login";
-import Profile from "../pages/profile";
 import { PrivateRoute } from "./routes/private";
 import { PublicRoute } from "./routes/public";
 import Create from "../pages/create";
 import { Layout } from "../layouts";
 import AllVehicles from "../pages/allVehicles";
 import SingleCar from "../pages/singleCar";
+import ProfilePage from "../pages/profile";
 
 export const Router = () => {
   const router = createBrowserRouter([
@@ -23,7 +23,7 @@ export const Router = () => {
         },
         {
           path: "profile",
-          element: <PrivateRoute element={<Profile />} />,
+          element: <PrivateRoute element={<ProfilePage />} />,
         },
         {
           path: "create",
