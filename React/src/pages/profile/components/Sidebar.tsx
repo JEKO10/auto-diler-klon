@@ -6,7 +6,7 @@ import { IoCarSportOutline } from "react-icons/io5";
 
 const Sidebar = ({ page, setPage }) => {
   return (
-    <aside className="absolute top-0 bg-red-500 h-fit w-fit flex items-center flex-col text-white px-4 py-5 [&>*]:my-7 [&>*]:cursor-pointer">
+    <aside className="lg:absolute top-0 bg-red-500 h-[565px] w-full lg:w-fit flex justify-between items-center lg:flex-col text-white px-4 py-5 sm:p-8 [&>*]:lg:my-7 [&>*]:cursor-pointer">
       <Link to="/">
         <svg
           width="24"
@@ -51,25 +51,25 @@ const Sidebar = ({ page, setPage }) => {
       </Link>
       <CgProfile
         onClick={() => setPage("profile")}
-        className={`text-2xl ${
+        className={`text-3xl ${
           page === "profile" && "text-black"
         } transition-colors hover:text-black`}
       />
       <IoCarSportOutline
         onClick={() => setPage("car")}
-        className={`text-2xl ${
+        className={`text-3xl ${
           page === "car" && "text-black"
         } transition-colors hover:text-black`}
       />
       <MdOutlineModeEdit
         onClick={() => setPage("edit")}
-        className={`text-2xl ${
+        className={`text-3xl ${
           page === "edit" && "text-black"
         } transition-colors hover:text-black`}
       />
       <MdNotificationsNone
         onClick={() => setPage("notif")}
-        className={`text-2xl ${
+        className={`text-3xl ${
           page === "notif" && "text-black"
         } transition-colors hover:text-black`}
       />
